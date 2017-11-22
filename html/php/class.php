@@ -1,30 +1,36 @@
 <?php
-/* init mysql */
+
 class Login
 {
 // 	/* TODO session */
-	private $email;
+	private $login;
 	private $password;
-	private $mysql;
 
 	public function __construct()
 	{
-		$this->email = $_GET["input_email"];
-		$this->password = $_GET["input_password"];
-		$this->mysql = mysqli_connect('localhost:/var/run/mysql/mysql.sock', 'xvasko12', 'pokubam5', 'xvasko12');
-		if (this->mysql->connect_error) {
-			// TODO swal
-		}
+		$this->login = $_POST["input_login"];
+		$this->password = $_POST["input_password"];
 	}
 
 	public function compare_password()
 	{
-		//TODO set session things
+		require_once("./database/mysql_init.php");
+		$mysql = new mysql_class();
+		$mysql = $mysql->get_status();
+		$query = "SELECT Login, Heslo FROM Osoba";
+		$result = mysqli_query($mysql, $query);
+
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				echo "login: " .  $row["Login"] . " heslo " . $row["Heslo"] . "<br>";
+			}
+		}
+		return true;
 	}
 
-	public function get_email()
+	public function get_login()
 	{
-		return $email;
+		return $login;
 	}
 
 	public function get_password()
@@ -35,8 +41,8 @@ class Login
 	public function show_attributes()
 	{
 		echo "<pre>";
-		echo "email: " . $this->email . "\npassword: " . $this->password . "\n";
+		echo "login: " . $this->login . "\npassword: " . $this->password . "\n";
 		echo "</pre>";
 	}
 }
-?>
+
