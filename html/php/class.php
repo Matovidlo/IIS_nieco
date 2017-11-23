@@ -32,12 +32,15 @@ class Login
 							$_SESSION['logged_in'] = true;
 						}
 						// TODO session
+						mysqli_close($mysql);
 						return 2;
 					}
+					mysqli_close($mysql);
 					return 1;
 				}
 			}
 		}
+		mysqli_close($mysql);
 		return 0;
 	}
 
@@ -53,9 +56,10 @@ class Login
 
 	public function check_session() {
 		if(time() - $_SESSION['timestamp'] > 900) {
-			echo"<script>alert('15 Minutes over!');</script>";
+			//echo"<script>alert('15 Minutes over!');</script>";
 			// unset($_SESSION['username'], $_SESSION['password'], $_SESSION['timestamp']);
-			session_unset();
+			// session_unset();
+			session_destroy();
 			$_SESSION['logged_in'] = false;
 			// header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/"); //redirect to index.php
 		} else {
@@ -78,6 +82,7 @@ class Login
 		$result = mysqli_query($mysql, $query);
 		while ($row = mysqli_fetch_assoc($result)) {
 			if ($_SESSION['login'] == $row['Login']) {
+				mysqli_close($mysql);
 				return "garant"; // TODO
 			}
 		}
@@ -86,6 +91,7 @@ class Login
 
 		while ($row = mysqli_fetch_assoc($result)) {
 			if ($_SESSION['login'] == $row['Login']) {
+				mysqli_close($mysql);
 				return "student";
 			}
 		}
