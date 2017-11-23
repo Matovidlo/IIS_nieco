@@ -3,6 +3,8 @@
  */
 
 /* Move down content because we have a fixed navbar that is 3.5rem tall */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
 body {
   padding-top: 3.5rem;
 }
@@ -61,4 +63,28 @@ h1 {
 .placeholder img {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.row nav{
+  width: 15%;
+}
+
+.nav-link {
+  color: rgb(202,196,201);
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.nav-link.active {
+  background-color: #4C9689 !important;
+  color: #FFFFFF;
+}
+
+.nav-link.active:hover {
+  background-color: #4C9689 !important;
+  color: #FFFFFF;
+}
+
+.nav-link:hover{
+  background-color: #3E313C !important;
+  color: rgb(202,196,201)
 }
