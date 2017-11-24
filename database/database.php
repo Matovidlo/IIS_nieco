@@ -4,7 +4,7 @@ require_once("mysql_init.php");
 $mysql = new mysql_class();
 $mysql = $mysql->get_status();
 
-$commands = file_get_contents_utf8("../html/sql/mysql.sql");
+$commands = file_get_contents_utf8("./html/sql/mysql.sql");
 if (mysqli_multi_query($mysql, $commands)) {
     do {
         /* store first result set */
@@ -23,6 +23,7 @@ if (mysqli_more_results($mysql)) {
 mysqli_close($mysql);
 header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/"); /* Redirect browser */
 exit();
+// die();
 
 
 /* convert to utf8 */

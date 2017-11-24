@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS `Student` CASCADE;
 DROP TABLE IF EXISTS `Zamestnanec` CASCADE;
 DROP TABLE IF EXISTS `Studijny_program` CASCADE;
 DROP TABLE IF EXISTS `Predmet` CASCADE;
+DROP TABLE IF EXISTS `Spravca` CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*  Student specializuje osobu, je v osobitnej tabulke kvoli konfliktom so zamestnancom.
@@ -47,9 +48,14 @@ FOREIGN KEY (Login) REFERENCES Osoba(Login)
 
 CREATE TABLE Zamestnanec (
 Login CHAR (8) PRIMARY KEY,
-Pracuje_pre_ustav VARCHAR (10) NOT NULL,
+Pracuje_pre_ustav VARCHAR (4) NOT NULL,
 Vyucuje BIT NOT NULL ,
 FOREIGN KEY (Login) REFERENCES Osoba(Login)
+);
+
+CREATE TABLE Spravca (
+Login CHAR (8) PRIMARY KEY,
+FOREIGN KEY (Login) REFERENCES Zamestnanec(Login)
 );
 
 CREATE TABLE Studijny_program (
@@ -132,7 +138,7 @@ VALUES('xmessi03','Lionel Messi', 'm82ujrwqlwo2UQOlLagw85WPTzgfz9VE98BFLuCdugA='
 INSERT INTO Osoba
 VALUES('xpasty09','Jozef Pastyrik', 'UuoyYOZCjX6CDO8/+d9EoDCQwust6FEd+au6ngV7BsM=');
 INSERT INTO Osoba
-VALUES('admin','Admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
+VALUES('admin','Morek Tamaškovič', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
 
 
 INSERT INTO Student
@@ -154,7 +160,6 @@ VALUES('xpasty09',2,4, 'BGR', '2017');
 INSERT INTO Student
 VALUES('ikanich',2,4,'MBI', '2015');
 
-
 INSERT INTO Zamestnanec
 VALUES('vesely', 'UPS', 1);
 INSERT INTO Zamestnanec
@@ -163,6 +168,11 @@ INSERT INTO Zamestnanec
 VALUES('smrcka', 'UVF', 1);
 INSERT INTO Zamestnanec
 VALUES('vojnar', 'UVF', 1);
+INSERT INTO Zamestnanec
+VALUES('admin', 'UIFS', 0);
+
+INSERT INTO Spravca
+VALUES('admin');
 
 INSERT INTO Predmet
 VALUES('IDS','2017','Databázové systémy','P',592,'ZaZk','FIT',600, 'BIT',5);
