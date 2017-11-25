@@ -23,6 +23,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 	    background-repeat: no-repeat;
 	    background-size: 100%;
 	    filter: blur(10pt);
+	    -webkit-filter: blur(10pt);
 	"></div>
 	<div class="container" style="max-width: 300px; margin-top: 10%; margin-bottom:10%;">
 		<form method=POST>
