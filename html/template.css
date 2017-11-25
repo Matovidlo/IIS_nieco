@@ -136,3 +136,8 @@ h1 {
   background-color: #3E313C !important;
   color: rgb(202,196,201)
 }
+
+.table-hover tbody tr:hover {
+  background-color: #4d394b;
+  color:white;
+}
