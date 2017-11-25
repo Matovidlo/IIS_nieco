@@ -33,6 +33,18 @@ h1 {
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   border-right: 1px solid #eee;
+  padding: 0px;
+  background-color: #4d394b;
+}
+
+.sidebar div {
+  display: block;
+  background: grey;
+  color: white;
+}
+
+.sidebar div div {
+  font-weight: 900; font-size:27pt; padding: 8px 0 0 16px;
 }
 
 .sidebar .nav {
@@ -49,6 +61,11 @@ h1 {
 
 .sidebar .nav-link {
   border-radius: 0;
+}
+
+.container-fluid {
+  position: absolute;
+  top:0px;
 }
 
 /*
