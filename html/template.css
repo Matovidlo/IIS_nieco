@@ -74,6 +74,37 @@ h1 {
   font-family: 'Noto Sans', sans-serif;
 }
 
+.btn-success{
+  border-color:#4C9689 !important;
+  background-color: #4C9689;
+}
+
+.btn-success:hover{
+  border-color:#4C9689 !important;
+  background-color: #4C9689;
+}
+
+.btn-success:not([disabled]):not(.disabled).active, .btn-success:not([disabled]):not(.disabled):active, .show>.btn-success.dropdown-toggle {
+  box-shadow: 0 0 0 0.2rem #4C9689 !important;
+}
+
+
+.btn-primary{
+  border-color:#4d394b !important;
+  background-color: #4d394b;
+}
+
+.btn-primary:hover{
+  border-color:#4d394b !important;
+  background-color: #4d394b;
+}
+
+.btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  box-shadow: 0 0 0 0.2rem #7d607a !important;
+  border-color:#7d607a !important;
+  background-color: #4d394b;
+}
+
 .nav-link.active {
   background-color: #4C9689 !important;
   color: #FFFFFF;
