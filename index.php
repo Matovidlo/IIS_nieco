@@ -11,7 +11,19 @@ require_once('./html/php/class.php');
 require_once("./html/php/session.php"); // creates $login_class class
 if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 ?>
-<body background="./img/clouds.jpg" style="background-repeat: no-repeat;background-size: 100%;">
+<body>
+	<div style="
+	    background-image: url(./img/bg.png);
+	    display: block;
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    z-index: -1;
+	    top: 0;
+	    background-repeat: no-repeat;
+	    background-size: 100%;
+	    filter: blur(10pt);
+	"></div>
 	<div class="container" style="max-width: 300px; margin-top: 10%; margin-bottom:10%;">
 		<form method=POST>
 			<div class="form-group">
