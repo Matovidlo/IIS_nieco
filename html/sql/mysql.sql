@@ -33,8 +33,12 @@ Ak_rok YEAR NOT NULL
 
 CREATE TABLE Osoba (
 Login  CHAR(8) PRIMARY KEY,
-Meno VARCHAR(80) UNIQUE,
-Heslo VARCHAR(160) UNIQUE
+Email VARCHAR(120) UNIQUE,
+Meno VARCHAR(80) UNIQUE NOT NULL,
+Heslo VARCHAR(160) UNIQUE NOT NULL,
+Adresa VARCHAR(80),
+Mesto VARCHAR(80) NOT NULL,
+PSC VARCHAR(5) NOT NULL
 );
 
 CREATE TABLE Student (
@@ -114,31 +118,38 @@ INSERT INTO Studijny_program
 VALUES('MBE','Magistersky','Bezpečnosť','2014',2,'prezenčná',4);
 
 INSERT INTO Osoba
-VALUES('xvasko14','Michal Vaško', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=');
+VALUES('xvasko14', 'xvasko14@stud.fit.vutbr.cz', 'Michal Vaško', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=',
+'', 'Presov', '07552');
 INSERT INTO Osoba
-VALUES('xvasko12','Martin Vaško', 'j0NDRmSPa5bfid2pAcUXaxCm2Dlh3TwayItZstwyeqQ=');
+VALUES('xvasko12', 'xvasko12@stud.fit.vutbr.cz', 'Martin Vaško', 'j0NDRmSPa5bfid2pAcUXaxCm2Dlh3TwayItZstwyeqQ=',
+'', 'Parchovany', '07662');
 INSERT INTO Osoba
-VALUES('xtamas01','Marek Tamaškovič', '10/w7o2juYBrGMh32/KbveULW9jk2tejpyUAD+uC6PE=');
+VALUES('xtamas01', 'xtamas01@stud.fit.vutbr.cz', 'Marek Tamaškovič', '10/w7o2juYBrGMh32/KbveULW9jk2tejpyUAD+uC6PE=',
+'', 'Sered', '05764');
 INSERT INTO Osoba
-VALUES('vesely','Vladimir Veselý' , 'DWvmmyZHF/LdM2UuISsXMQS0pke3wRrnLpiF8RzTEvs=');
+VALUES('vesely', 'vesely@stud.fit.vutbr.cz', 'Vladimir Veselý' , 'DWvmmyZHF/LdM2UuISsXMQS0pke3wRrnLpiF8RzTEvs=',
+'', 'Brno', '60200');
 INSERT INTO Osoba
-VALUES('ikanich','Vlasta Kanich' , 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=');
+VALUES('ikanich', 'ikanich@stud.fit.vutbr.cz', 'Vlasta Kanich' , 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
+'', 'Brno', '60200');
 INSERT INTO Osoba
-VALUES('smrcka','Aleš Smrčka' , 'uebonUCLrSmUFw0UBTiy6xENTgMo3TpOwSgneXnTppQ=');
+VALUES('smrcka', 'smrcka@stud.fit.vutbr.cz', 'Aleš Smrčka' , 'uebonUCLrSmUFw0UBTiy6xENTgMo3TpOwSgneXnTppQ=',
+'', 'Brno', '60200');
 INSERT INTO Osoba
-VALUES('vojnar','Tomas Vojnar' , 'MUjVkVfjd26+9CQIixQDtAZDMvU3abAdwC6RyXfC+T4=');
+VALUES('vojnar', 'vojnar@stud.fit.vutbr.cz', 'Tomas Vojnar' , 'MUjVkVfjd26+9CQIixQDtAZDMvU3abAdwC6RyXfC+T4=',
+'', 'Brno', '60200');
 INSERT INTO Osoba
-VALUES('xkiska01','Andrej Kiska' , '9/rZLVTHTLM584lEuZph3WSuF88afJInmpHK3eGAlio=');
+VALUES('xpotte02', 'xpotte02@stud.fit.vutbr.cz', 'Harry Potter', 'ZYcq05lmOvAaWS+XfVIfFA6Nu4OjGq0VUNB0kspJAao=',
+'', 'Rockfort', '01234');
 INSERT INTO Osoba
-VALUES('xronal07','Cristiano Ronaldo', '4k3SIQgDtHN6m9njFjpMqAe2MgHDvDK2j7EiylLv/zY=');
+VALUES('xmessi03', 'xmessi03@stud.fit.vutbr.cz', 'Lionel Messi', 'm82ujrwqlwo2UQOlLagw85WPTzgfz9VE98BFLuCdugA=',
+'', 'Barcelona', '98765');
 INSERT INTO Osoba
-VALUES('xpotte02','Harry Potter', 'ZYcq05lmOvAaWS+XfVIfFA6Nu4OjGq0VUNB0kspJAao=');
+VALUES('xpasty09', 'xpasty09@stud.fit.vutbr.cz', 'Jozef Pastyrik', 'UuoyYOZCjX6CDO8/+d9EoDCQwust6FEd+au6ngV7BsM=',
+'', 'Brno', '60200');
 INSERT INTO Osoba
-VALUES('xmessi03','Lionel Messi', 'm82ujrwqlwo2UQOlLagw85WPTzgfz9VE98BFLuCdugA=');
-INSERT INTO Osoba
-VALUES('xpasty09','Jozef Pastyrik', 'UuoyYOZCjX6CDO8/+d9EoDCQwust6FEd+au6ngV7BsM=');
-INSERT INTO Osoba
-VALUES('admin','Morek Tamaškovič', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
+VALUES('admin', 'admin@stud.fit.vutbr.cz', 'Morek Tamaškovič', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=',
+'', 'Brno', '60200');
 
 
 INSERT INTO Student

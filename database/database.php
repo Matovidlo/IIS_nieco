@@ -47,8 +47,6 @@ echo "</pre>"; */
         echo base64_encode(hash('sha256', 'admin', true)). "\n";
         echo base64_encode(hash('sha256', 'smrcka', true)). "\n";
         echo base64_encode(hash('sha256', 'vojnar', true)). "\n";
-        echo base64_encode(hash('sha256', 'kiska', true)). "\n";
-        echo base64_encode(hash('sha256', 'ronaldo', true)). "\n";
         echo base64_encode(hash('sha256', 'potter', true)). "\n";
         echo base64_encode(hash('sha256', 'messi', true)). "\n";
         echo base64_encode(hash('sha256', 'pasty', true)). "\n";
