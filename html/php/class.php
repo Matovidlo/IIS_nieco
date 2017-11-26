@@ -126,7 +126,7 @@ class Student {
 
 	public function change_information()
 	{
-
+		$_SESSION['timestamp'] = time();
 		if(!empty($_POST["email"]) && is_string($_POST["email"])) {
 			$this->check_update_query($_POST["email"], $this->login);
 		}

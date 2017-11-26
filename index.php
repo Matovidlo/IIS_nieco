@@ -58,7 +58,6 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 	require_once('./html/php/class.php');
 	$login_class = new Login($_SESSION['login']);
 	$login_class->check_session();
-	// echo "<pre>" . $login_class->get_user() . "\n</pre>";
 	// TODO rozdel medzi administratora, garanta a studenta
 	if ($login_class->get_user() == "student") {
 		$student = new Student($_SESSION['login']);
@@ -79,23 +78,17 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             </div>
           <ul class="nav nav-pills  flex-column">
             <li class="nav-item ">
-              <a class="nav-link" href="#">Registrácia pedmetov<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="reg-subj.php">Registrácia pedmetov<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Zapísané predmety</a>
+              <a class="nav-link" href="list-subj.php">Zapísané predmety</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Registrácia odboru</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Prehľad študia</a>
+              <a class="nav-link" href="list-study.php">Prehľad študia</a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Nastavenia</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link active" href="#">Profil</a>
             </li>
@@ -103,7 +96,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">Odhlásiť</a>
+              <a class="nav-link" href="./html/php/logout.php">Odhlásiť</a>
             </li>
           </ul>
         </nav>
@@ -118,7 +111,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="inputPassword4">Heslo</label>
