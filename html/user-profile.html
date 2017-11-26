@@ -31,7 +31,7 @@
               <a class="nav-link" href="user-list-subj.html">Zapísané predmety</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Prehľad študia</a>
+              <a class="nav-link" href="user-list-study.html">Prehľad študia</a>
             </li>
           </ul>
 
@@ -56,29 +56,37 @@
           <h2>Osobné informácie</h2>
           <form>
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-3">
                 <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required>
               </div>
-              <div class="form-group col-md-6">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
                 <label for="inputPassword4">Heslo</label>
                 <input type="password" class="form-control" id="inputPassword4" placeholder="Heslo">
               </div>
-            </div>
-            <div class="form-group">
-              <label for="inputAddress">Adresa</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo">
-            </div>
-            <div class="form-group">
-              <label for="inputAddress2">Adresa 2</label>
-              <input type="text" class="form-control" id="inputAddress2" placeholder="Č. bytu, poschodie, ...">
+              <div class="form-group col-md-3">
+                <label for="inputPassword4">Heslo znova</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Heslo">
+              </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputCity">Mesto</label>
-                <input type="text" class="form-control" id="inputCity">
+              <div class="form-group col-md-3">
+                <label for="inputAddress">Adresa</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" required>
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
+                <label for="inputAddress2">Adresa 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Č. bytu, poschodie, ..." required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputCity">Mesto</label>
+                <input type="text" class="form-control" id="inputCity" required>
+              </div>
+              <div class="form-group col-md-2">
                 <label for="inputState">Kraj</label>
                 <select id="inputState" class="form-control">
                   <option selected>Trnavský</option>
@@ -87,7 +95,7 @@
               </div>
               <div class="form-group col-md-2">
                 <label for="inputZip">PSČ</label>
-                <input type="text" class="form-control" id="inputZip">
+                <input type="text" class="form-control" id="inputZip" required>
               </div>
             </div>
             <button type="submit" class="btn btn-primary">Uložiť</button>
