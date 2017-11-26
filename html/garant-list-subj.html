@@ -25,19 +25,16 @@
             </div>
           <ul class="nav nav-pills  flex-column">
             <li class="nav-item ">
-              <a class="nav-link active" href="#">Registrácia pedmetov<span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="garant-list-subj.html">Zoznam predmetov<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="user-list-subj.html">Zapísané predmety</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="user-list-study.html">Prehľad študia</a>
+              <a class="nav-link" href="garant-list-field.html">Študíjne obory</a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="user-profile.html">Profil</a>
+              <a class="nav-link" href="garant-profile.html">Profil</a>
             </li>
           </ul>
 
@@ -49,26 +46,32 @@
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-          <h1>Registrácia predmetov</h1>
-          <span class=".text-left" style="width: 45%; display:block; margin-bottom: 15px;">
-            V nasledujúcej ponuke si možete zaregistrovať či poprípade odregistrovať predmety. Pre úspešné zvládnutie semestru je potrebné získať aspoň 15 kreditov. Pre postup do ďalšieho ročníka potrebujete za tento akademický rok získať aspoň 30 kreditov.
+          <h1>Zoznam všetkých predmetov</h1>
+          <span class=".text-left" style="margin-bottom: 15px; display: block;">
+            Na tejto stránke môžete videť všetky predmety.
           </span>
-          <h2>Prehľad všetkých predmetov</h2>
+          <h2>Vytvoriť predmet</h2>
+            <button type="button" class="btn btn-success" >Vytvor predmet</button>
+          <br>
+          <br>
+
+          <h2>Prehľad predmetov</h2>
           <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped  table-hover">
               <thead>
                 <tr>
-                  <th colspan="8">Zimný semester</th>
+                  <th colspan="9">Zimný semester</th>
                 </tr>
                 <tr>
                   <th>Skratka</th>
                   <th>Typ</th>
                   <th>Kredity</th>
                   <th>Nazov</th>
+                  <th>Obor</th>
                   <th>Fakulta</th>
                   <th>Max</th>
                   <th>Zapísaných</th>
-                  <th>Registrovaný</th>
+                  <th>Akcie</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,11 +80,13 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS" checked>
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
                 <tr>
@@ -89,11 +94,13 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS" checked>
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
                 <tr>
@@ -101,11 +108,13 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS">
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
                 <tr>
@@ -113,42 +122,59 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS">
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
-                </tr>
-                <tr>
+                </tr><tr>
                   <td>IIS</td>
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS">
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
+                  </td>
+                </tr><tr>
+                  <td>IIS</td>
+                  <td>P</td>
+                  <td>4</td>
+                  <td>Informačné systémy</td>
+                  <td>BIT</td>
+                  <td>FIT</td>
+                  <td>500</td>
+                  <td>469</td>
+                  <td>
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
               </tbody>
             </table>
             <br>
-            <table class="table table-striped table-hover">
+            <table class="table table-striped  table-hover">
               <thead>
                 <tr>
-                  <th colspan="8">Letný semester</th>
+                  <th colspan="9">Letný semester</th>
                 </tr>
                 <tr>
                   <th>Skratka</th>
                   <th>Typ</th>
                   <th>Kredity</th>
                   <th>Nazov</th>
+                  <th>Obor</th>
                   <th>Fakulta</th>
                   <th>Max</th>
                   <th>Zapísaných</th>
-                  <th>Registrovaný</th>
+                  <th>Akcie</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,11 +183,13 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS" checked>
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
                 <tr>
@@ -169,11 +197,13 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS" checked>
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
                 <tr>
@@ -181,11 +211,13 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS">
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
                 <tr>
@@ -193,47 +225,43 @@
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS">
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
-                </tr>
-                <tr>
+                </tr><tr>
                   <td>IIS</td>
                   <td>P</td>
                   <td>4</td>
                   <td>Informačné systémy</td>
+                  <td>BIT</td>
                   <td>FIT</td>
                   <td>500</td>
                   <td>469</td>
                   <td>
-                    <input type="checkbox" name="IIS">
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
+                  </td>
+                </tr><tr>
+                  <td>IIS</td>
+                  <td>P</td>
+                  <td>4</td>
+                  <td>Informačné systémy</td>
+                  <td>BIT</td>
+                  <td>FIT</td>
+                  <td>500</td>
+                  <td>469</td>
+                  <td>
+                    <button type="button" class="btn btn-secondary btn-sm" >Uprav</button>
+                    <button type="button" class="btn btn-danger btn-sm" >Vymaž</button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <br>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Povinné</th>
-                  <th>Povinno-voliteľné</th>
-                  <th>Voliteľne</th>
-                  <th>Celkovo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>35</td>
-                  <td>3</td>
-                  <td>25</td>
-                  <td>63</td>
-                </tr>
-              </tbody>
-            </table>
-            <button type="button" class="btn btn-primary" style="margin: 0 5px 15px 0; float:right;">Potvrď</button>
           </div>
         </main>
       </div>
