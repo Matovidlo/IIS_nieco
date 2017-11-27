@@ -1,13 +1,11 @@
 <?php
   session_start();
-  ini_set("default_charset", "utf-8");
-  $str_time = time();
-  $_SESSION['timestamp'] = $str_time;
   require_once('./html/php/class.php');
   // if
   $login_class = new Login($_SESSION['login']);
-  $login_class->check_session();
+  $login_class->init_session();
   if ($login_class->get_user() == "student") {
+    $student = new Student($_SESSION['login']);
 ?>
 <html lang="en" class="gr__getbootstrap_com">
 <head>
@@ -16,13 +14,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>IIS - prehľad predmetov</title>
+    <title>IIS - Prehľad predmetov</title>
 
     <!-- Bootstrap core CSS -->
 
     <!-- <script src="./bootstrap/js/bootstrap.min.js"></script> -->
     <link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./html//template.css" rel="stylesheet">
+    <link href="./html/template.css" rel="stylesheet">
 </head>
 
 <body data-gr-c-s-loaded="true" style="">
@@ -66,6 +64,7 @@
           </span>
           <h2>Prehľad zapísaných predmetov</h2>
           <div class="table-responsive">
+            <h3><?php $student->get_year(true); ?></h3>
             <table class="table table-striped  table-hover">
               <thead>
                 <tr>
@@ -77,56 +76,14 @@
                   <th>Kredity</th>
                   <th>Nazov</th>
                   <th>Fakulta</th>
-                  <th>Max</th>
-                  <th>Zapísaných</th>
+                  <th>Body</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
+                <?php
+                  // Winter term subjects if exists within this year
+                  $student->get_subject("Zimny", true);
+                ?>
               </tbody>
             </table>
             <br>
@@ -141,60 +98,17 @@
                   <th>Kredity</th>
                   <th>Nazov</th>
                   <th>Fakulta</th>
-                  <th>Max</th>
-                  <th>Zapísaných</th>
+                  <th>Body</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
+                <?php
+                  $student->get_subject("Letny", true);
+                ?>
               </tbody>
             </table>
             <br>
-            <table class="table table-striped">
+            <table class="table table-responsive">
               <thead>
                 <tr>
                   <th>Povinné</th>
@@ -204,12 +118,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>35</td>
-                  <td>3</td>
-                  <td>25</td>
-                  <td>63</td>
-                </tr>
+                <?php
+                  $student->get_count();
+                ?>
               </tbody>
             </table>
           </div>
@@ -224,6 +135,7 @@
 
 </body>
 </html>
+
 <?php
 }
 ?>

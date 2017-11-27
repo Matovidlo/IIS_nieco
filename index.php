@@ -38,7 +38,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 	    -webkit-filter: blur(10pt);
 	"></div>
 	<div class="container" style="max-width: 300px; margin-top: 10%; margin-bottom:10%;">
-		<form method=POST>
+		<form method="POST">
 			<div class="form-group">
 				<label for="exampleInputLogin">Login</label>
 				<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter login" name="input_login" value="<?php if($save === 1) echo $_POST["input_login"];?>">
@@ -49,7 +49,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 				<label for="exampleInputPassword1">Password</label>
 				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="input_password">
 			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<button type="submit" name="Submit" class="btn btn-primary">Login</button>
 		</form>
 	</div>
 </body>
@@ -107,39 +107,50 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             Na tejto stránke môžete upraviť svoje osobné informácie.
           </span>
           <h2>Osobné informácie</h2>
-          <form method=POST>
+          <form method="POST">
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputEmail4">Email</label>
+              <div class="form-group col-md-3 required">
+                <label class="control-label" for="inputEmail4">Email</label>
                 <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" required>
               </div>
-              <div class="form-group col-md-6">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
                 <label for="inputPassword4">Heslo</label>
                 <input type="password" class="form-control" id="inputPassword4" placeholder="Heslo" name="heslo">
               </div>
-            </div>
-            <div class="form-group">
-              <label for="inputAddress">Adresa</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa">
+              <div class="form-group col-md-3">
+                <label for="inputPassword4">Heslo znova</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Heslo" name="heslo_potvrd">
+              </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputCity">Mesto</label>
-                <input type="text" class="form-control" id="inputCity" name="mesto">
+              <div class="form-group col-md-3 ">
+                <label class="control-label" for="inputAddress">Adresa</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa">
               </div>
-              <div class="form-group col-md-4">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label class="control-label" for="inputCity">Mesto</label>
+                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" required="required" name="mesto">
+              </div>
+              <div class="form-group col-md-2">
                 <label for="inputState">Kraj</label>
                 <select id="inputState" class="form-control">
                   <option selected>Trnavský</option>
                   <option>...</option>
                 </select>
               </div>
-              <div class="form-group col-md-2">
-                <label for="inputZip">PSČ</label>
-                <input type="text" class="form-control" id="inputZip" name="psc">
+              <div class="form-group required col-md-2">
+                <label class="control-label" for="inputZip">PSČ</label>
+                <input type="text" class="form-control" id="inputZip" placeholder="000 00" required="required" name="psc">
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" name="Submit">Uložiť</button>
+            Prvky označené <span style="color: #d00;position: relative; margin-left: 4px; top: -6px;">*</span> sú povinné.
+            <br>
+            <br>
+            <button type="submit" name="Submit" class="btn btn-primary">Uložiť</button>
           </form>
         </main>
       </div>

@@ -1,13 +1,13 @@
 <?php
   session_start();
-  ini_set("default_charset", "utf-8");
-  $str_time = time();
-  $_SESSION['timestamp'] = $str_time;
   require_once('./html/php/class.php');
   // if
   $login_class = new Login($_SESSION['login']);
-  $login_class->check_session();
+  $login_class->init_session();
+
+
   if ($login_class->get_user() == "student") {
+    $student = new Student($_SESSION['login']);
 ?>
 <html lang="en" class="gr__getbootstrap_com">
 <head>
@@ -65,6 +65,7 @@
             V nasledujúcej ponuke si možete zaregistrovať či poprípade odregistrovať predmety. Pre úspešné zvládnutie semestru je potrebné získať aspoň 15 kreditov. Pre postup do ďalšieho ročníka potrebujete za tento akademický rok získať aspoň 30 kreditov.
           </span>
           <h2>Prehľad všetkých predmetov</h2>
+          <form method="POST">
           <div class="table-responsive">
             <table class="table table-striped table-hover">
               <thead>
@@ -83,66 +84,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS" checked>
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS" checked>
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS">
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS">
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS">
-                  </td>
-                </tr>
+                <?php
+                  // Show winter subjects register for current Academic year
+                  $student->show_subj_register();
+                ?>
               </tbody>
             </table>
             <br>
@@ -163,66 +108,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS" checked>
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS" checked>
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS">
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS">
-                  </td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                  <td>
-                    <input type="checkbox" name="IIS">
-                  </td>
-                </tr>
+                <?php
+                  // Summer subject registration list
+                  $student->show_subj_register("Letny");
+                ?>
               </tbody>
             </table>
             <br>
@@ -237,15 +126,15 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>35</td>
-                  <td>3</td>
-                  <td>25</td>
-                  <td>63</td>
+                  <?php
+                    //TODO
+                  ?>
                 </tr>
               </tbody>
             </table>
-            <button type="button" class="btn btn-primary" style="margin: 0 5px 15px 0; float:right;">Potvrď</button>
+            <button type="submit" name="Submit" class="btn btn-primary" style="margin: 0 5px 15px 0; float:right;">Potvrď</button>
           </div>
+        </form>
         </main>
       </div>
     </div>
@@ -258,5 +147,9 @@
 </body>
 </html>
 <?php
+  if(isset($_POST["Submit"])) {
+    $student->change_register_subject();
+  }
+
 }
 ?>

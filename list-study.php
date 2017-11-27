@@ -1,13 +1,11 @@
 <?php
   session_start();
-  ini_set("default_charset", "utf-8");
-  $str_time = time();
-  $_SESSION['timestamp'] = $str_time;
   require_once('./html/php/class.php');
   // if
   $login_class = new Login($_SESSION['login']);
-  $login_class->check_session();
+  $login_class->init_session();
   if ($login_class->get_user() == "student") {
+    $student = new Student($_SESSION['login']);
 ?>
 <html lang="en" class="gr__getbootstrap_com">
 <head>
@@ -62,11 +60,15 @@
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
           <h1>Zapísané predmety</h1>
           <span class=".text-left" style="margin-bottom: 15px; display: block;">
-            Na tejto stránke môžete videť všetky aktuálne zapísané predmety v ak. roku 2017/2018.
+            Na tejto stránke môžete videť všetky zapísané predmety naprieč akademickými rokmi.
           </span>
           <h2>Prehľad zapísaných predmetov</h2>
+          <?php
+            $student->get_study();
+            while($student->filled()) {
+           ?>
           <div class="table-responsive">
-            <h3>Rok 1</h3>
+            <h3> <?php $student->get_year(); ?></h3>
             <table class="table table-striped  table-hover">
               <thead>
                 <tr>
@@ -83,51 +85,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
+               <?php
+
+               // Winter term subjects if exists within this year
+               $student->get_subject();
+
+               ?>
               </tbody>
             </table>
             <br>
@@ -147,54 +110,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
+                <?php
+                // Summer term subjects if exists within this year
+                $student->get_subject("Letny");
+
+                ?>
               </tbody>
             </table>
-            <br>
             <table class="table table-responsive">
               <thead>
                 <tr>
@@ -205,316 +127,16 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>35</td>
-                  <td>3</td>
-                  <td>25</td>
-                  <td>63</td>
-                </tr>
+                <?php
+                  $student->get_count();
+                ?>
               </tbody>
             </table>
           </div>
           <br>
-          <div class="table-responsive">
-            <h3>Rok 2</h3>
-            <table class="table table-striped  table-hover">
-              <thead>
-                <tr>
-                  <th colspan="7">Zimný semester</th>
-                </tr>
-                <tr>
-                  <th>Skratka</th>
-                  <th>Typ</th>
-                  <th>Kredity</th>
-                  <th>Nazov</th>
-                  <th>Fakulta</th>
-                  <th>Max</th>
-                  <th>Zapísaných</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-              </tbody>
-            </table>
-            <br>
-            <table class="table table-striped  table-hover">
-              <thead>
-                <tr>
-                  <th colspan="7">Letný semester</th>
-                </tr>
-                <tr>
-                  <th>Skratka</th>
-                  <th>Typ</th>
-                  <th>Kredity</th>
-                  <th>Nazov</th>
-                  <th>Fakulta</th>
-                  <th>Max</th>
-                  <th>Zapísaných</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-              </tbody>
-            </table>
-            <br>
-            <table class="table table-responsive">
-              <thead>
-                <tr>
-                  <th>Povinné</th>
-                  <th>Povinno-voliteľné</th>
-                  <th>Voliteľne</th>
-                  <th>Celkovo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>35</td>
-                  <td>3</td>
-                  <td>25</td>
-                  <td>63</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <br>
-          <div class="table-responsive">
-            <h3>Rok 3</h3>
-            <table class="table table-striped  table-hover">
-              <thead>
-                <tr>
-                  <th colspan="7">Zimný semester</th>
-                </tr>
-                <tr>
-                  <th>Skratka</th>
-                  <th>Typ</th>
-                  <th>Kredity</th>
-                  <th>Nazov</th>
-                  <th>Fakulta</th>
-                  <th>Max</th>
-                  <th>Zapísaných</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-              </tbody>
-            </table>
-            <br>
-            <table class="table table-striped  table-hover">
-              <thead>
-                <tr>
-                  <th colspan="7">Letný semester</th>
-                </tr>
-                <tr>
-                  <th>Skratka</th>
-                  <th>Typ</th>
-                  <th>Kredity</th>
-                  <th>Nazov</th>
-                  <th>Fakulta</th>
-                  <th>Max</th>
-                  <th>Zapísaných</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-                <tr>
-                  <td>IIS</td>
-                  <td>P</td>
-                  <td>4</td>
-                  <td>Informačné systémy</td>
-                  <td>FIT</td>
-                  <td>500</td>
-                  <td>469</td>
-                </tr>
-              </tbody>
-            </table>
-            <br>
-            <table class="table table-responsive">
-              <thead>
-                <tr>
-                  <th>Povinné</th>
-                  <th>Povinno-voliteľné</th>
-                  <th>Voliteľne</th>
-                  <th>Celkovo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>35</td>
-                  <td>3</td>
-                  <td>25</td>
-                  <td>63</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <br>
+            <?php
+              }
+            ?>
           <div class="table-striped">
             <h3>Celkovo</h3>
             <table class="table table-responsive">
@@ -528,10 +150,10 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>35</td>
-                  <td>3</td>
-                  <td>25</td>
-                  <td>63</td>
+                  <?php
+                    // get overall summary
+                    $student->get_count(true);
+                  ?>
                 </tr>
               </tbody>
             </table>

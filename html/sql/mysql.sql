@@ -26,9 +26,10 @@ Rocny_kreditovy_strop INT UNIQUE
 );
 
 CREATE TABLE Prihlasuje (
-Login CHAR(8) NOT NULL,
+Login CHAR(8) NOT NULL ,
 Skratka_predmetu CHAR(3) NOT NULL,
-Ak_rok YEAR NOT NULL
+Ak_rok YEAR NOT NULL,
+PRIMARY KEY (Login, Skratka_predmetu, Ak_rok)
 );
 
 CREATE TABLE Osoba (
@@ -84,15 +85,21 @@ Typ VARCHAR(3) NOT NULL,
 Obsadenost INT NOT NULL,
 Ukoncenie_predmetu VARCHAR(5) NOT NULL,
 Fakulta VARCHAR(40) NOT NULL,
+Semester VARCHAR(8) NOT NULL,
 Limit_prihlasenych INT,
 Skratka_programu VARCHAR(3),
+
 Pocet_kreditov INT CHECK (Pocet_kreditov >0),
 PRIMARY KEY (Ak_rok, Skratka_predmetu),
 FOREIGN KEY (Ak_rok,Skratka_programu) REFERENCES Studijny_program (Ak_rok,Skratka_programu)
 ); 
 
+
 ALTER TABLE Prihlasuje ADD CONSTRAINT fk_Predmet FOREIGN KEY (Ak_rok,Skratka_predmetu) REFERENCES Predmet(Ak_rok,Skratka_predmetu);
-ALTER TABLE Prihlasuje ADD CONSTRAINT fk_Osoba FOREIGN KEY (Login) REFERENCES Osoba(Login);
+ALTER TABLE Prihlasuje ADD CONSTRAINT fk_Student FOREIGN KEY (Login) REFERENCES Student(Login);
+
+
+
 
 
 INSERT INTO Pravidlo
@@ -159,10 +166,6 @@ VALUES('xvasko12',1,2,'BGR', '2017');
 INSERT INTO Student
 VALUES('xtamas01',2,4, 'BIT' , '2016');
 INSERT INTO Student
-VALUES('xkiska01',3,4, 'BIT', '2015');
-INSERT INTO Student
-VALUES('xronal07',2,4, 'BIT', '2017');
-INSERT INTO Student
 VALUES('xpotte02',2,4, 'BGR', '2017');
 INSERT INTO Student
 VALUES('xmessi03',2,4, 'BIT', '2017');
@@ -186,17 +189,17 @@ INSERT INTO Spravca
 VALUES('admin');
 
 INSERT INTO Predmet
-VALUES('IDS','2017','Databázové systémy','P',592,'ZaZk','FIT',600, 'BIT',5);
+VALUES('IDS','2017','Databázové systémy','P',592,'ZaZk','FIT', 'Letny', 600, 'BIT',5);
 INSERT INTO Predmet
-VALUES('ITY','2017','Typografia','V',350,'KlZa','FIT', 600, 'BGR',4);
+VALUES('ITY','2017','Typografia','V',350,'KlZa','FIT', 'Letny', 600, 'BGR',4);
 INSERT INTO Predmet
-VALUES('IOS','2016','Operačné systémy','P',420,'ZaZk','FIT',600, 'BIT',6);
+VALUES('IOS','2016','Operačné systémy','P',420,'ZaZk','FIT', 'Letny', 600, 'BIT',6);
 INSERT INTO Predmet
-VALUES('IFJ','2016','Formálne jazyky','P',410,'ZaZk','FIT',600, 'BIT',5);
+VALUES('IFJ','2016','Formálne jazyky','P',410,'ZaZk','FIT', 'Zimny', 600, 'BIT',5);
 INSERT INTO Predmet
-VALUES('IPP','2017','00P','P',420,'Zk','FIT',600, 'BIT',7);
+VALUES('IPP','2017','00P','P',420,'Zk','FIT', 'Letny', 600, 'BIT',7);
 INSERT INTO Predmet
-VALUES('IAL','2016','Algoritmy','P',420,'ZaZk','FIT',600, 'BIT',5);
+VALUES('IAL','2017','Algoritmy','P',420,'ZaZk','FIT', 'Zimny', 600, 'BIT',5);
 
 
 INSERT INTO Prihlasuje
@@ -210,19 +213,23 @@ VALUES('xvasko14', 'IDS', '2017');
 INSERT INTO Prihlasuje
 VALUES('xvasko14', 'IFJ', '2016');
 INSERT INTO Prihlasuje
-VALUES('xtamas01', 'IDS' , '2017');
+VALUES('xtamas01', 'IDS', '2017');
 INSERT INTO Prihlasuje
-VALUES('xtamas01', 'IPP' , '2017');
-INSERT INTO Prihlasuje
-VALUES('xkiska01', 'IDS', '2017');
-INSERT INTO Prihlasuje
-VALUES('xronal07', 'IDS', '2017');
+VALUES('xtamas01', 'IPP', '2017');
 INSERT INTO Prihlasuje
 VALUES('xpotte02', 'IDS', '2017');
 INSERT INTO Prihlasuje
-VALUES('xmessi03','IDS', '2017');
+VALUES('xmessi03', 'IDS', '2017');
 INSERT INTO Prihlasuje
-VALUES('xpasty09','IDS', '2017');
+VALUES('xpasty09', 'IDS', '2017');
+
+
+
+SELECT
+Student.Login, Student.Ak_rok
+FROM
+Student NATURAL JOIN Studijny_program;
+
 
 /*SELECT
 Prihlasuje.Login, Predmet.Ak_rok, Predmet.Skratka_predmetu
@@ -300,5 +307,15 @@ WHERE
       Predmet
     WHERE
       Predmet.Ukoncenie_predmetu = 'ZaZk'
+
+
+
+
+      Rocnik INT CHECK (Rocnik > 0 and Rocnik <= 6),
+Semester INT CHECK (Semester > 0 and Semester <= 12),
+
+
+
+
   )*/
 
