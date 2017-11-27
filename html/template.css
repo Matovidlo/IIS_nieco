@@ -149,3 +149,15 @@ h1 {
   background-color: #4d394b;
   color:white;
 }
+
+.userType{
+  display: none;
+}
+
+#student{
+  display:block;
+}
+
+#zamestnanec{
+  display:none;
+}
