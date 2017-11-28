@@ -1,3 +1,18 @@
+<?php
+  session_start();
+  require_once('./html/php/class.php');
+  // if
+  $login_class = new Login($_SESSION['login']);
+  $login_class->init_session();
+  if ($login_class->get_user() == "garant") {
+    require_once("./html/php/garant.php");
+    $garant = new Garant($_SESSION['login']);
+    $options = $garant->get_options();
+    if (isset($_POST["Submit"])) {
+      $garant->update_division();
+    }
+?>
+
 <html lang="en" class="gr__getbootstrap_com">
 <head>
     <meta charset="utf-8">
@@ -5,13 +20,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>IIS</title>
+    <title>IIS - zmena programu</title>
 
     <!-- Bootstrap core CSS -->
 
     <!-- <script src="./bootstrap/js/bootstrap.min.js"></script> -->
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./template.css" rel="stylesheet">
+    <link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./html/template.css" rel="stylesheet">
 </head>
 
 <body data-gr-c-s-loaded="true" style="">
@@ -25,28 +40,21 @@
             </div>
           <ul class="nav nav-pills  flex-column">
             <li class="nav-item ">
-              <a class="nav-link" href="admin-list-subj.html">Zoznam predmetov<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="list-subj.php">Zoznam predmetov<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="admin-list-field.html">Študíjne obory</a>
+              <a class="nav-link" href="list-field.php">Študíjne obory</a>
+            </li>
+          </ul>
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Profil</a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="admin-user-mntc.html">Správa účtov</a>
-            </li>
-          </ul>
-
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="admin-profile.html">Profil</a>
-            </li>
-          </ul>
-
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Odhlásiť</a>
+              <a class="nav-link" href="./html/php/logout.php">Odhlásiť</a>
             </li>
           </ul>
         </nav>
@@ -54,60 +62,55 @@
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
           <h1>Študijný obor</h1>
           <span class=".text-left" style="margin-bottom: 15px; display: block;">
-            Na tejto stránke môžete vytvoriť študijný obor.
+            Na tejto stránke môžete zmeniť študijný obor.
           </span>
-          <h2>Vytvoriť študijný obor</h2>
-          <form>
+          <h2>Zmeniť študijný obor</h2>
+          <form method="POST">
             <div class="form-row">
               <div class="form-group col-md-4 required">
-                <label class="control-label" for="inputEmail4">Názov</label>
-                <input type="text" class="form-control" id="Name" placeholder="Názov" required>
+                <label class="control-label" for="inputEmail4">Skratka</label>
+                <input type="text" class="form-control" id="Name" placeholder="Názov" name="skratka" value="<?php echo $options["Skratka_programu"]?>" required>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-2 required">
-                <label class="control-label" for="inputCity">Dátum získania akreditácie</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="DD-MM-RRRR" required="required">
-              </div>
-              <div class="form-group col-md-2 required">
                 <label class="control-label" for="inputCity">Dátum ukončenia akreditácie</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="DD-MM-RRRR" required="required">
+                <input type="text" class="form-control" id="inputCity" placeholder="RRRR"  name="akredit" value="<?php echo $options["Akreditacia"]?>" required="required">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-2 required">
                 <label class="control-label" for="inputAddress">Garant</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Meno" required>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Meno" name="garant" required>
               </div>
               <div class="form-group required col-md-2">
                 <label class="control-label" for="inputZip">Odbor</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="Dopln sem neviem co" required="required">
+                <input type="text" class="form-control" id="inputZip" placeholder="Doplnte sem názov odboru" name="odbor" value="<?php echo $options["Odbor"]?>" required="required">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-2">
                 <label for="inputState">Forma štúdia</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Prezenčná</option>
-                  <option>Ďialková</option>
+                <select id="inputState" class="form-control" name="forma">
+                  <option value="prezenčná" selected>Prezenčná</option>
+                  <option value="externá">Externá</option>
                 </select>
               </div>
               <div class="form-group col-md-2">
                 <label for="inputState">Doba štúdia</label>
-                <select id="inputState" class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option selected>3</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <select id="inputState" class="form-control" name="doba">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
               </div>
             </div>
             Prvky označené <span style="color: #d00;position: relative; margin-left: 4px; top: -6px;">*</span> sú povinné.
             <br>
             <br>
-            <button type="submit" class="btn btn-primary">Uložiť</button>
+            <button type="submit" name="Submit" class="btn btn-primary">Uložiť</button>
           </form>
         </main>
       </div>
@@ -120,3 +123,8 @@
 
 </body>
 </html>
+<?php
+}else {
+  header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/");
+}
+?>

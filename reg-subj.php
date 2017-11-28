@@ -8,6 +8,10 @@
 
   if ($login_class->get_user() == "student") {
     $student = new Student($_SESSION['login']);
+    if(isset($_POST["Submit"])) {
+      $student->change_register_subject();
+      // header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/reg-subj.php");
+    }
 ?>
 <html lang="en" class="gr__getbootstrap_com">
 <head>
@@ -128,6 +132,7 @@
                 <tr>
                   <?php
                     //TODO
+                    $student->show_subj_count();
                   ?>
                 </tr>
               </tbody>
@@ -147,9 +152,7 @@
 </body>
 </html>
 <?php
-  if(isset($_POST["Submit"])) {
-    $student->change_register_subject();
-  }
-
+} else {
+  header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/");
 }
 ?>

@@ -68,9 +68,11 @@ Skratka_programu VARCHAR(3),
 Typ_studia VARCHAR(20),
 Odbor VARCHAR(30),
 Ak_rok YEAR NOT NULL,
+Akreditacia YEAR NOT NULL,
 Doba_studia INT NOT NULL,
 Forma_studia VARCHAR(20),
 Cislo_pravidla INT,
+Popis VARCHAR(512),
 FOREIGN KEY(Cislo_pravidla) REFERENCES Pravidlo(Id_pravidla)
 );
 
@@ -88,8 +90,8 @@ Fakulta VARCHAR(40) NOT NULL,
 Semester VARCHAR(8) NOT NULL,
 Limit_prihlasenych INT,
 Skratka_programu VARCHAR(3),
-
 Pocet_kreditov INT CHECK (Pocet_kreditov >0),
+Rocnik INT CHECK (Rocnik > 0 and Rocnik <= 6),
 PRIMARY KEY (Ak_rok, Skratka_predmetu),
 FOREIGN KEY (Ak_rok,Skratka_programu) REFERENCES Studijny_program (Ak_rok,Skratka_programu)
 ); 
@@ -112,17 +114,17 @@ INSERT INTO Pravidlo
 VALUES(4,130,3,80);
 
 INSERT INTO Studijny_program
-VALUES('BIT','Bakalarsky','Informatika','2016',3,'prezenčná',1);
+VALUES('BIT','Bakalarsky','Informatika','2016', '2020', 3,'prezenčná',1, 'Informatika je super');
 INSERT INTO Studijny_program
-VALUES('BGR','Bakalarsky','Grafika','2017',3,'prezenčná',1);
+VALUES('BGR','Bakalarsky','Grafika','2017', '2021', 3,'prezenčná',1, 'Grafika matika');
 INSERT INTO Studijny_program
-VALUES('BIT','Bakalarsky','Informatika','2017',3,'externá',2);
+VALUES('BIT','Bakalarsky','Informatika','2017', '2021', 3,'externá',2, 'Blablacar');
 INSERT INTO Studijny_program
-VALUES('BIT','Bakalarsky','Bioinfromatika','2015',2,'prezenčná',3);
+VALUES('BIT','Bakalarsky','Bioinfromatika','2015', '2020', 2,'prezenčná',3, 'Slimaky');
 INSERT INTO Studijny_program
-VALUES('MBI','Magistersky','Bioinfromatika','2015',2,'prezenčná',3);
+VALUES('MBI','Magistersky','Bioinfromatika','2015', '2021', 2,'prezenčná',3, 'Geneticke algoritmy');
 INSERT INTO Studijny_program
-VALUES('MBE','Magistersky','Bezpečnosť','2014',2,'prezenčná',4);
+VALUES('MBE','Magistersky','Bezpečnosť','2014', '2020', 2,'prezenčná',4, 'Aladin');
 
 INSERT INTO Osoba
 VALUES('xvasko14', 'xvasko14@stud.fit.vutbr.cz', 'Michal Vaško', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=',
@@ -189,17 +191,17 @@ INSERT INTO Spravca
 VALUES('admin');
 
 INSERT INTO Predmet
-VALUES('IDS','2017','Databázové systémy','P',592,'ZaZk','FIT', 'Letny', 600, 'BIT',5);
+VALUES('IDS','2017','Databázové systémy','P',592,'ZaZk','FIT', 'Letny', 600, 'BIT',5, 2);
 INSERT INTO Predmet
-VALUES('ITY','2017','Typografia','V',350,'KlZa','FIT', 'Letny', 600, 'BGR',4);
+VALUES('ITY','2017','Typografia','V',350,'KlZa','FIT', 'Letny', 600, 'BGR',4, 2);
 INSERT INTO Predmet
-VALUES('IOS','2016','Operačné systémy','P',420,'ZaZk','FIT', 'Letny', 600, 'BIT',6);
+VALUES('IOS','2016','Operačné systémy','P',420,'ZaZk','FIT', 'Letny', 600, 'BIT',6, 1);
 INSERT INTO Predmet
-VALUES('IFJ','2016','Formálne jazyky','P',410,'ZaZk','FIT', 'Zimny', 600, 'BIT',5);
+VALUES('IFJ','2016','Formálne jazyky','P',410,'ZaZk','FIT', 'Zimny', 600, 'BIT',5, 2);
 INSERT INTO Predmet
-VALUES('IPP','2017','00P','P',420,'Zk','FIT', 'Letny', 600, 'BIT',7);
+VALUES('IPP','2017','00P','P',420,'Zk','FIT', 'Letny', 600, 'BIT',7, 2);
 INSERT INTO Predmet
-VALUES('IAL','2017','Algoritmy','P',420,'ZaZk','FIT', 'Zimny', 600, 'BIT',5);
+VALUES('IAL','2017','Algoritmy','P',420,'ZaZk','FIT', 'Zimny', 600, 'BIT',5, 2);
 
 
 INSERT INTO Prihlasuje

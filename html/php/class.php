@@ -108,6 +108,9 @@ class Login
 	}
 }
 
+
+
+
 class Student {
 	private $login;
 	private $pole_rokov = array();
@@ -119,7 +122,6 @@ class Student {
 		$this->mysql = new mysql_class();
 		$this->mysql = $this->mysql->get_status();
 		$this->login = $login;
-
 	}
 
 	private function check_update_query($post, $where, $type="Email") {
@@ -133,12 +135,22 @@ class Student {
 	{
 		$str_time = time();
 		$_SESSION['timestamp'] = $str_time;
-		if(!empty($_POST["email"]) && is_string($_POST["email"])) {
-			$this->check_update_query($_POST["email"], $this->login);
-		}
 		if (!empty($_POST["heslo"]) && is_string($_POST["heslo"])) {
+			if (!empty($_POST["heslo_potvrd"]) && is_string($_POST["heslo_potvrd"])) {
+				if ($_POST["heslo"] != $_POST["heslo_potvrd"]) {
+					// TODO swal
+					die();
+				}
+			} else {
+				die();
+			}
+
 			$heslo = base64_encode(hash("sha256", $_POST["heslo"], true));
 			$this->check_update_query($heslo, $this->login, "Heslo");
+		}
+
+		if(!empty($_POST["email"]) && is_string($_POST["email"])) {
+			$this->check_update_query($_POST["email"], $this->login);
 		}
 		if (!empty($_POST["mesto"]) && is_string($_POST["mesto"])) {
 			$this->check_update_query($_POST["mesto"], $this->login, "Mesto");
@@ -255,13 +267,16 @@ HEREDOC;
 
 	public function show_subj_register($type = "Zimny")
 	{
-		$query = "SELECT Skratka_programu FROM Student WHERE Student.Login='" . $_SESSION["login"] ."'";
+		// Get obor to Session
+		$query = "SELECT Skratka_programu, Rocnik FROM Student WHERE Student.Login='" . $_SESSION["login"] ."'";
 		$result = mysqli_query($this->mysql, $query);
 		$data = mysqli_fetch_assoc($result);
 		$obor = $data["Skratka_programu"];
+		$rocnik = $data["Rocnik"];
 		$_SESSION["obor"] = $obor;
+		$_SESSION["rocnik"] = $rocnik;
 
-		$query = "SELECT * FROM Predmet NATURAL JOIN Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y") . "  AND Predmet.Semester='$type'";
+		$query = "SELECT * FROM Predmet NATURAL JOIN Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y") . "  AND Predmet.Semester='$type' AND Predmet.Rocnik=$rocnik";
 		$result = mysqli_query($this->mysql, $query);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
@@ -282,7 +297,7 @@ HEREDOC;
 			}
 		}
 
-		$query = "SELECT * FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . "  AND Predmet.Semester='$type' AND Skratka_programu='$obor' AND Skratka_predmetu NOT IN (SELECT Skratka_predmetu FROM Predmet NATURAL JOIN Prihlasuje NATURAL JOIN Studijny_program WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y") . "  AND Predmet.Semester='$type')";
+		$query = "SELECT * FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . "  AND Predmet.Semester='$type' AND Skratka_programu='$obor' AND Predmet.Rocnik=$rocnik AND Skratka_predmetu NOT IN (SELECT Skratka_predmetu FROM Predmet NATURAL JOIN Prihlasuje NATURAL JOIN Studijny_program WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y") . "  AND Predmet.Semester='$type' AND Predmet.Rocnik=$rocnik)";
 		// echo $query;
 		$result = mysqli_query($this->mysql, $query);
 		if ($result->num_rows > 0) {
@@ -306,11 +321,27 @@ HEREDOC;
 
 	}
 
+	public function show_subj_count()
+	{
+		$query = "SELECT sum(Pocet_kreditov) as total FROM Predmet NATURAL JOIN Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y") . " AND Predmet.Typ='P'";
+		$this->perform_count_query($query);
+
+		$query = "SELECT sum(Pocet_kreditov) as total FROM Predmet NATURAL JOIN Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y") . " AND Predmet.Typ='PV'";
+		$this->perform_count_query($query);
+
+		$query = "SELECT sum(Pocet_kreditov) as total FROM Predmet NATURAL JOIN Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y") . " AND Predmet.Typ='V'";
+		$this->perform_count_query($query);
+
+		$query = "SELECT sum(Pocet_kreditov) as total FROM Predmet NATURAL JOIN Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "' AND Predmet.Ak_rok=" . date("Y");
+		$this->perform_count_query($query);
+	}
+
 	public function change_register_subject()
 	{
-		// TODO zobraz iba aktualne pre studium semester  a rocnik- semester vyries ako letny a zimny parne anepadne
 		// TODO admin moze pridat predmet uzivatelovi z roznych oborov
-		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Skratka_programu='" . $_SESSION["obor"] . "'";
+
+		//  . " AND Skratka_programu='" . $_SESSION["obor"] . "'
+		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y");
 		$result = mysqli_query($this->mysql, $query);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
@@ -323,6 +354,7 @@ HEREDOC;
 				}
 			}
 		}
+		unset($_SESSION["obor"]);
 	}
 
 	private function insert_subject($subj)
@@ -338,37 +370,6 @@ HEREDOC;
 		$query = "DELETE FROM Prihlasuje WHERE Prihlasuje.Skratka_predmetu='$subj'";
 		$result = mysqli_query($this->mysql, $query);
 	}
-
-	private function get_input_tags($html)
-	{
-    $post_data = array();
-    // a new dom object
-    $dom = new DomDocument;
-    //load the html into the object
-    $dom->load($html);
-    //discard white space
-    $dom->preserveWhiteSpace = false;
-    //all input tags as a list
-    $input_tags = $dom->getElementsByTagName('input');
-
-    //get all rows from the table
-    for ($i = 0; $i < $input_tags->length; $i++) {
-        if( is_object($input_tags->item($i)) ) {
-            $name = $value = '';
-            $name_o = $input_tags->item($i)->attributes->getNamedItem('name');
-            if(is_object($name_o)) {
-                $name = $name_o->value;
-                $value_o = $input_tags->item($i)->attributes->getNamedItem('value');
-                if(is_object($value_o)) {
-                    $value = $input_tags->item($i)->attributes->getNamedItem('value')->value;
-                }
-                $post_data[$name] = $value;
-            }
-        }
-    }
-    return $post_data;
-}
-
 
 	private function perform_count_query($query) {
 		$result = mysqli_query($this->mysql, $query);
@@ -387,6 +388,8 @@ EOL;
 
 	// end of class
 }
+
+
 
 
 // TODO swal

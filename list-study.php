@@ -172,5 +172,6 @@
 <?php
 } else {
   die("Pristup zamedzeny! Nedostatocne prava");
+  // TODO header?
 }
 ?>
