@@ -81,10 +81,11 @@ EOL;
 		}
 	}
 
-	public function delete_program()
+	public function delete_program($prog, $rok)
 	{
-		$program = mysqli_real_escape_string($this->mysql, $_GET["prog"]);
-		$rok = mysqli_real_escape_string($this->mysql, $_GET["rok"]);
+
+		$program = mysqli_real_escape_string($this->mysql, $prog);
+		$rok = mysqli_real_escape_string($this->mysql, $rok);
 
 		// DELETE students, osoba, and predmet
 		$query = "SELECT Login FROM Student NATURAL JOIN Osoba WHERE Student.Skratka_programu='$program' AND Student.Ak_rok=$rok ";
@@ -442,6 +443,116 @@ EOL;
 			$query = "INSERT INTO Zamestnanec VALUES ('$login', '', 0)";
 			mysqli_query($this->mysql, $query);
 			$query = "INSERT INTO Spravca VALUES('$login')";
+			mysqli_query($this->mysql, $query);
+		}
+	}
+
+
+	public function create_rule()
+	{
+		if (!empty($_POST["kredity"]) && !empty($_POST["strop"])) {
+			$query="SELECT Id_pravidla FROM Pravidlo WHERE Id_pravidla	=(SELECT max(Id_pravidla) FROM Pravidlo)";
+			$result = mysqli_query($this->mysql, $query);
+			$data = mysqli_fetch_assoc($result);
+			$max = $data["Id_pravidla"];
+			$max++;
+			$pocet = 0;
+			if (!empty($_POST["pocet"]) && is_numeric($_POST["pocet"])) {
+				$pocet = mysqli_real_escape_string($this->mysql, $_POST["pocet"]);
+			}
+			$kredity = 0;
+			$strop = 0;
+			if (is_numeric($_POST["kredity"]) && is_numeric($_POST["strop"])) {
+				$kredity =  mysqli_real_escape_string($this->mysql, $_POST["kredity"]);
+				$strop =  mysqli_real_escape_string($this->mysql, $_POST["strop"]);
+			} else {
+				break;
+			}
+
+			$query = "INSERT INTO Pravidlo VALUES($max, $kredity, $pocet, $strop)";
+			mysqli_query($this->mysql, $query);
+		}
+
+	}
+
+	public function edit_rule()
+	{
+		if (is_numeric($_GET["id"])) {
+			$id = mysqli_real_escape_string($this->mysql, $_GET["id"]);
+			$query = "SELECT * FROM Pravidlo WHERE Id_pravidla=$id";
+			$result = mysqli_query($this->mysql, $query);
+			if ($result) {
+				$data = mysqli_fetch_assoc($result);
+				return $data;
+			}
+			return array("Pocet_kreditov" => "", "Max_pocet_registracii" => "", "Rocny_kreditovy_strop" => "");
+		}
+	}
+
+	public function update_rule()
+	{
+
+		if (!empty($_POST["kredity"]) && !empty($_POST["strop"]) && isset($_GET["id"])) {
+			$pocet = 0;
+			if (!empty($_POST["pocet"]) && is_numeric($_POST["pocet"])) {
+				$pocet = mysqli_real_escape_string($this->mysql, $_POST["pocet"]);
+			}
+			$kredity = 0;
+			$strop = 0;
+			if (is_numeric($_POST["kredity"]) && is_numeric($_POST["strop"])) {
+				$kredity =  mysqli_real_escape_string($this->mysql, $_POST["kredity"]);
+				$strop =  mysqli_real_escape_string($this->mysql, $_POST["strop"]);
+			} else {
+				break;
+			}
+			if(is_numeric($_GET["id"]))
+				$id = mysqli_real_escape_string($this->mysql, $_GET["id"]);
+			else
+				break;
+			$query = "UPDATE Pravidlo SET Pocet_kreditov=$kredity, Max_pocet_registracii=$pocet, Rocny_kreditovy_strop=$strop WHERE Id_pravidla=$id";
+			mysqli_query($this->mysql, $query);
+		}
+	}
+
+	public function list_rules()
+	{
+		$query = "SELECT * FROM Pravidlo";
+		$result = mysqli_query($this->mysql, $query);
+		while($row = $result->fetch_assoc()) {
+			echo <<<EOL
+	      <tr>
+	        <td>{$row["Id_pravidla"]}</td>
+	        <td>{$row["Pocet_kreditov"]}</td>
+	        <td>{$row["Max_pocet_registracii"]}</td>
+	        <td>{$row["Rocny_kreditovy_strop"]}</td>
+	        <td>
+	          <button type="button" onclick="window.location.href='edit-rule.php?id={$row["Id_pravidla"]}'" class="btn btn-secondary btn-sm" >Uprav</button>
+	          <button type="button" onclick="Pravidlo{$row["Id_pravidla"]}()" class="btn btn-danger btn-sm" >Vymaž</button>
+	        </td>
+	      </tr>
+	      <script>
+	      	function Pravidlo{$row["Id_pravidla"]}() {
+	      		var redirect = "list-rules.php?id={$row['Id_pravidla']}";
+	        	var result = confirm("Want to delete?");
+	        	if (result) {
+	        		window.location.href=redirect;
+	        	}
+	      	}
+	      </script>
+EOL;
+		}
+	}
+
+	public function delete_rule()
+	{
+		if (is_numeric($_GET["id"])){
+			$id = $_GET["id"];
+			$query = "SELECT DISTINCT Skratka_programu, Ak_rok FROM Pravidlo, Studijny_program WHERE $id=Studijny_program.Cislo_pravidla";
+			$result = mysqli_query($this->mysql, $query);
+			while($row = $result->fetch_assoc()) {
+				$this->delete_program($row["Skratka_programu"], $row["Ak_rok"]);
+			}
+			$query = "DELETE FROM Pravidlo WHERE Id_pravidla=$id";
 			mysqli_query($this->mysql, $query);
 		}
 	}

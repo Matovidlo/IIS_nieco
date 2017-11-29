@@ -7,11 +7,8 @@
   if ($login_class->get_user() == "administrator") {
     require_once("./html/php/admin.php");
     $admin = new Admin($_SESSION['login']);
-    if (isset($_POST["Submit"])) {
-      $admin->edit_user();
-    }
-    if (isset($_GET["login"])) {
-      $admin->delete_user();
+    if (isset($_GET["id"])) {
+      $admin->delete_rule();
     }
 ?>
 
@@ -22,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>IIS - Prehľad užívateľov</title>
+    <title>IIS - Prehľad pravidiel</title>
 
     <!-- Bootstrap core CSS -->
 
@@ -42,19 +39,19 @@
             </div>
           <ul class="nav nav-pills  flex-column">
             <li class="nav-item ">
-              <a class="nav-link " href="list-subj.php">Zoznam predmetov<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="list-subj.php">Zoznam predmetov<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="list-field.php">Študíjne obory</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="list-rules.php">Pravidlá registrácií</a>
+              <a class="nav-link active" href="list-rules.php">Pravidlá registrácií</a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="user-mntc.php">Správa účtov</a>
+              <a class="nav-link" href="user-mntc.php">Správa účtov</a>
             </li>
           </ul>
 
@@ -72,41 +69,34 @@
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-          <h1>Zoznam všetkých používateľov</h1>
+          <h1>Zoznam všetkých pravidiel</h1>
           <span class=".text-left" style="margin-bottom: 15px; display: block;">
-            Na tejto stránke môžete videť všetkých používateľov.
+            Na tejto stránke môžete videť všetky pravidlá pre registráciu.
           </span>
-          <h2>Vytvoriť účet</h2>
-            <button type="button" onclick="window.location.href='create-user.php'" class="btn btn-success" >Vytvor účet</button>
+          <h2>Vytvoriť pravidlo</h2>
+            <button type="button" onclick="window.location.href='create-rule.php'" class="btn btn-success" >Vytvor pravidlo</button>
           <br>
           <br>
 
-          <h2>Prehľad používateľov</h2>
+          <h2>Prehľad pravidiel</h2>
           <div class="table-responsive">
-            <form method="POST">
             <table class="table table-striped  table-hover">
               <thead>
                 <tr>
-                  <th>Login</th>
-                  <th>Meno</th>
-                  <th>Email</th>
-                  <th>Mesto</th>
-                  <th>Typ účtu</th>
-                  <th>Registrovaný od</th>
-                  <th>Posledná zmena</th>
-                  <th>Akcie</th>
+                  <th>ID pravidla</th>
+                  <th>Počet kreditov</th>
+                  <th>Maximálny počet registrácií</th>
+                  <th>Ročný kreditový strop</th>
+                  <th>Operácie</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                  $admin->show_users();
+                  $admin->list_rules();
                 ?>
               </tbody>
             </table>
           </div>
-          <button type="submit" name="Submit" class="btn btn-secondary">Uložiť zmeny</button>
-          <br>
-        </form>
         </main>
       </div>
     </div>
@@ -119,9 +109,8 @@
 </body>
 </html>
 
-
 <?php
 } else {
-  header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/index.php");
+  header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/");
 }
 ?>

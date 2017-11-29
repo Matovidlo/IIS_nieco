@@ -77,7 +77,7 @@
     require_once('./html/php/admin.php');
     $admin = new Admin($_SESSION['login']);
     if (isset($_GET["prog"]) && isset($_GET["rok"])) {
-      $admin->delete_program();
+      $admin->delete_program($_GET['prog'], $_GET["rok"]);
     }
 ?>
 
@@ -97,7 +97,11 @@
             <li class="nav-item">
               <a class="nav-link active" href="list-field.php">Študíjne obory</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="list-rules.php">Pravidlá registrácií</a>
+            </li>
           </ul>
+
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">

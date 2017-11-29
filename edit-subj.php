@@ -44,16 +44,21 @@
             <li class="nav-item">
               <a class="nav-link" href="list-field.php">Študíjne obory</a>
             </li>
-          </ul>
-          <?php
+            <?php
             if($login_class->get_user() == "administrator") {
             ?>
+            <li class="nav-item">
+              <a class="nav-link" href="list-rules.php">Pravidlá registrácií</a>
+            </li>
+          </ul>
             <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a class="nav-link" href="user-mntc.php">Správa účtov</a>
             </li>
           </ul>
           <?php
+          } else {
+            echo "</ul>";
           }
           ?>
 

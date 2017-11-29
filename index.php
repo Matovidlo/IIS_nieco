@@ -289,6 +289,9 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <li class="nav-item">
               <a class="nav-link" href="list-field.php">Študíjne obory</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="list-rules.php">Pravidlá registrácií</a>
+            </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
