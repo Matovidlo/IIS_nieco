@@ -36,7 +36,7 @@ CREATE TABLE Osoba (
 Login  CHAR(8) PRIMARY KEY,
 Email VARCHAR(120) UNIQUE,
 Meno VARCHAR(80) UNIQUE NOT NULL,
-Heslo VARCHAR(160) UNIQUE NOT NULL,
+Heslo VARCHAR(160) NOT NULL,
 Adresa VARCHAR(80),
 Mesto VARCHAR(80) NOT NULL,
 PSC VARCHAR(5) NOT NULL
@@ -53,7 +53,7 @@ FOREIGN KEY (Login) REFERENCES Osoba(Login)
 
 CREATE TABLE Zamestnanec (
 Login CHAR (8) PRIMARY KEY,
-Pracuje_pre_ustav VARCHAR (4) NOT NULL,
+Pracuje_pre_ustav VARCHAR (4),
 Vyucuje BIT NOT NULL ,
 FOREIGN KEY (Login) REFERENCES Osoba(Login)
 );
@@ -116,7 +116,7 @@ VALUES(4,130,3,80);
 INSERT INTO Studijny_program
 VALUES('BIT','Bakalarsky','Informatika','2016', '2020', 3,'prezenčná',1, 'Informatika je super');
 INSERT INTO Studijny_program
-VALUES('BGR','Bakalarsky','Grafika','2017', '2021', 3,'prezenčná',1, 'Grafika matika');
+VALUES('BGR','Bakalarsky','Grafika','2016', '2021', 3,'prezenčná',1, 'Grafika matika');
 INSERT INTO Studijny_program
 VALUES('BIT','Bakalarsky','Informatika','2017', '2021', 3,'externá',2, 'Blablacar');
 INSERT INTO Studijny_program
@@ -164,15 +164,15 @@ VALUES('admin', 'admin@stud.fit.vutbr.cz', 'Morek Tamaškovič', 'jGl25bVBBBW96Q
 INSERT INTO Student
 VALUES('xvasko14',2,4, 'BIT','2016');
 INSERT INTO Student
-VALUES('xvasko12',1,2,'BGR', '2017');
+VALUES('xvasko12',2,3,'BGR', '2016');
 INSERT INTO Student
 VALUES('xtamas01',2,4, 'BIT' , '2016');
 INSERT INTO Student
-VALUES('xpotte02',2,4, 'BGR', '2017');
+VALUES('xpotte02',2,4, 'BGR', '2016');
 INSERT INTO Student
 VALUES('xmessi03',2,4, 'BIT', '2017');
 INSERT INTO Student
-VALUES('xpasty09',2,4, 'BGR', '2017');
+VALUES('xpasty09',2,4, 'BGR', '2016');
 INSERT INTO Student
 VALUES('ikanich',2,4,'MBI', '2015');
 
@@ -193,7 +193,7 @@ VALUES('admin');
 INSERT INTO Predmet
 VALUES('IDS','2017','Databázové systémy','P',592,'ZaZk','FIT', 'Letny', 600, 'BIT',5, 2);
 INSERT INTO Predmet
-VALUES('ITY','2017','Typografia','V',350,'KlZa','FIT', 'Letny', 600, 'BGR',4, 2);
+VALUES('ITY','2016','Typografia','V',350,'KlZa','FIT', 'Letny', 600, 'BGR',4, 2);
 INSERT INTO Predmet
 VALUES('IOS','2016','Operačné systémy','P',420,'ZaZk','FIT', 'Letny', 600, 'BIT',6, 1);
 INSERT INTO Predmet
@@ -207,7 +207,7 @@ VALUES('IAL','2017','Algoritmy','P',420,'ZaZk','FIT', 'Zimny', 600, 'BIT',5, 2);
 INSERT INTO Prihlasuje
 VALUES('xvasko12', 'IDS', '2017');
 INSERT INTO Prihlasuje
-VALUES('xvasko12', 'ITY', '2017');
+VALUES('xvasko12', 'ITY', '2016');
 INSERT INTO Prihlasuje
 VALUES('xvasko12', 'IOS', '2016');
 INSERT INTO Prihlasuje

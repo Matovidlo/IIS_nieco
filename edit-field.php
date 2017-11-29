@@ -4,13 +4,13 @@
   // if
   $login_class = new Login($_SESSION['login']);
   $login_class->init_session();
-  if ($login_class->get_user() == "garant") {
+  if ($login_class->get_user() == "garant" || $login_class->get_user() == "administrator") {
     require_once("./html/php/garant.php");
     $garant = new Garant($_SESSION['login']);
-    $options = $garant->get_options();
     if (isset($_POST["Submit"])) {
       $garant->update_division();
     }
+    $options = $garant->get_options();
 ?>
 
 <html lang="en" class="gr__getbootstrap_com">
@@ -46,6 +46,18 @@
               <a class="nav-link" href="list-field.php">Študíjne obory</a>
             </li>
           </ul>
+          <?php
+            if($login_class->get_user() == "administrator") {
+            ?>
+            <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="user-mntc.php">Správa účtov</a>
+            </li>
+          </ul>
+          <?php
+          }
+          ?>
+
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a class="nav-link" href="index.php">Profil</a>

@@ -19,6 +19,7 @@ class Garant {
 		return $result;
 		// return true;
 	}
+	//  TODO pracuje pre ustav
 	public function change_information()
 	{
 		$str_time = time();
@@ -98,7 +99,7 @@ EOL;
 EOL;
 				}
 				if (($curr % 3) === 2) {
-					echo "</div>";
+					echo "</div><br>";
 				}
 				$curr++;
 			}
@@ -147,7 +148,7 @@ EOL;
 	public function show_subjects($term="Zimny")
 	{
 		// TODO iba tento rok? alebo vsetky
-		$query = "SELECT * FROM Predmet WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='$term'";
+		$query = "SELECT * FROM Predmet WHERE Predmet.Semester='$term'";
 		$result = mysqli_query($this->mysql, $query);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
@@ -244,9 +245,8 @@ HEREDOC;
 
 	public function insert_subject()
 	{
-		if (!empty($_POST["nazov"]) && !empty($_POST["skratka"]) && !empty($_POST["kredity"]) && !empty($_POST["cap"]) && !empty($_POST["faculty"]) && !empty($_POST["typ"]) && !empty($_POST["odbor"]) && !empty($_POST["rok"]) && !empty($_POST["semester"]) && !empty($_POST["rocnik"])) {
+		if (!empty($_POST["nazov"]) && !empty($_POST["skratka"]) && !empty($_POST["kredity"]) && !empty($_POST["cap"]) && !empty($_POST["faculty"]) && !empty($_POST["typ"]) && !empty($_POST["odbor"]) && !empty($_POST["semester"]) && !empty($_POST["rocnik"])) {
 
-			$rok = mysqli_real_escape_string($this->mysql, $_POST["rok"]);
 			$nazov = mysqli_real_escape_string($this->mysql, $_POST["nazov"]);
 			$skr = mysqli_real_escape_string($this->mysql, $_POST["skratka"]);
 			$odbor = mysqli_real_escape_string($this->mysql, $_POST["odbor"]);
@@ -256,8 +256,9 @@ HEREDOC;
 			$kredity = mysqli_real_escape_string($this->mysql, $_POST["kredity"]);
 			$semester = mysqli_real_escape_string($this->mysql, $_POST["semester"]);
 			$rocnik =  mysqli_real_escape_string($this->mysql, $_POST["rocnik"]);
+			$odbor = explode('-', $odbor);
 
-			$query = "INSERT INTO Predmet VALUES ('$skr','$rok', '$nazov', '$typ', $cap, 'ZaZk', '$faculty', '$semester', $cap, '$odbor', $kredity, $rocnik);";
+			$query = "INSERT INTO Predmet VALUES ('$skr','$odbor[1]', '$nazov', '$typ', $cap, 'ZaZk', '$faculty', '$semester', $cap, '$odbor[0]', $kredity, $rocnik);";
 			$result = mysqli_query($this->mysql, $query);
 			// print_r($query);
 			if ($result) {
@@ -269,6 +270,17 @@ HEREDOC;
 	}
 	// TODO niekto urobte update predmetu tu vyssie je predloha ako to ma vyzerat
 
+
+	public function show_odbor()
+	{
+		$query = "SELECT Skratka_programu, Ak_rok FROM Studijny_program";
+		$result = mysqli_query($this->mysql, $query);
+		while($row = $result->fetch_assoc()) {
+			$prog = $row["Skratka_programu"];
+			$rok = $row["Ak_rok"];
+			echo "<option value='$prog-$rok'> $prog-$rok</option>";
+		}
+	}
 
 }
 

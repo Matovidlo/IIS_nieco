@@ -340,6 +340,8 @@ HEREDOC;
 	{
 		// TODO admin moze pridat predmet uzivatelovi z roznych oborov
 
+		// TODO Predmet nemoze byt starsi nez obor
+
 		//  . " AND Skratka_programu='" . $_SESSION["obor"] . "'
 		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y");
 		$result = mysqli_query($this->mysql, $query);

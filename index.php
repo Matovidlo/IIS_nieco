@@ -265,6 +265,114 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 
 
 <?php
+	} else {
+		require_once('./html/php/garant.php');
+		$garant = new Garant($_SESSION['login']);
+		if (isset($_POST["Submit"])) {
+			$garant->change_information();
+		}
+
+?>
+<body data-gr-c-s-loaded="true" style="">
+    <div class="container-fluid" style="">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-slack sidebar" style="">
+            <div style="">
+                <div style="">
+                    <span>WISv0.5</span>
+                </div>
+            </div>
+          <ul class="nav nav-pills  flex-column">
+            <li class="nav-item ">
+              <a class="nav-link" href="list-subj.php">Zoznam predmetov<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="list-field.php">Študíjne obory</a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="user-mntc.php">Správa účtov</a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.php">Profil</a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="./html/php/logout.php">Odhlásiť</a>
+            </li>
+          </ul>
+        </nav>
+
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+          <h1>Profil</h1>
+          <span class=".text-left" style="margin-bottom: 15px; display: block;">
+            Na tejto stránke môžete upraviť svoje osobné informácie.
+          </span>
+          <h2>Osobné informácie</h2>
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-3 required">
+                <label class="control-label" for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required name="email">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="inputPassword4">Heslo</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Heslo" name="heslo">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="inputPassword4">Heslo znova</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Heslo" name="heslo_potvrd">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3 required">
+                <label class="control-label" for="inputAddress">Adresa</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2 required">
+                <label class="control-label" for="inputCity">Mesto</label>
+                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" name="mesto" required="required">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputState">Kraj</label>
+                <select id="inputState" class="form-control">
+                  <option selected>Trnavský</option>
+                  <option>...</option>
+                </select>
+              </div>
+              <div class="form-group required col-md-2">
+                <label class="control-label" for="inputZip">PSČ</label>
+                <input type="text" class="form-control" id="inputZip" placeholder="000 00" name="psc" required="required">
+              </div>
+            </div>
+            Prvky označené <span style="color: #d00;position: relative; margin-left: 4px; top: -6px;">*</span> sú povinné.
+            <br>
+            <br>
+            <button type="submit" name="Submit" class="btn btn-primary">Uložiť</button>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+</body>
+
+<?php
 	}
 
 }

@@ -4,13 +4,15 @@
   // if
   $login_class = new Login($_SESSION['login']);
   $login_class->init_session();
-  if ($login_class->get_user() == "garant" || $login_class->get_user() == "administrator") {
-    require_once("./html/php/garant.php");
-    $garant = new Garant($_SESSION['login']);
+  if ($login_class->get_user() == "administrator") {
+    require_once("./html/php/admin.php");
+    $admin = new Admin($_SESSION['login']);
     if (isset($_POST["Submit"])) {
-      $garant->insert_subject();
+      $admin->create_division();
     }
+    $options = $admin->get_options();
 ?>
+
 <html lang="en" class="gr__getbootstrap_com">
 <head>
     <meta charset="utf-8">
@@ -18,7 +20,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>IIS - Pridaj predmet</title>
+    <title>IIS - zmena programu</title>
 
     <!-- Bootstrap core CSS -->
 
@@ -70,76 +72,64 @@
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-          <h1>Vytvorenie predmetu</h1>
+          <h1>Študijný obor</h1>
           <span class=".text-left" style="margin-bottom: 15px; display: block;">
-            Vyplnťe informácie o predmete
+            Na tejto stránke je možné vytvoriť študijný obor.
           </span>
-          <h2>Nový predmet</h2>
+          <h2>Vytvoriť študijný obor</h2>
           <form method="POST">
             <div class="form-row">
-              <div class="form-group col-md-2">
-                <label for="inputEmail4">Skratka</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="XXX" name="skratka">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputPassword4">Názov</label>
-                <input type="text" class="form-control" id="inputPassword4" placeholder="Názov predmetu" name="nazov">
+              <div class="form-group col-md-4 required">
+                <label class="control-label" for="inputEmail4">Skratka</label>
+                <input type="text" class="form-control" id="Name" placeholder="Názov" name="skratka" value="<?php echo $options["Skratka_programu"]?>" required>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-1">
-                <label for="inputAddress">Počet kreditov</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="8" name="kredity">
+              <div class="form-group col-md-2 required">
+                <label class="control-label" for="inputCity">Dátum ukončenia akreditácie</label>
+                <input type="text" class="form-control" id="inputCity" placeholder="RRRR"  name="akredit" value="<?php echo $options["Akreditacia"]?>" required="required">
               </div>
-              <div class="form-group col-md-1">
-                <label for="inputAddress">Kapacita</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="500" name="cap">
-              </div>
-              <div class="form-group col-md-1">
-                <label for="inputState">Fakulta</label>
-                <select id="inputState" class="form-control" name="faculty">
-                  <option value="FIT" selected>FIT</option>
-                  <option value="FP">FP</option>
-                  <option value="FEKT">FEKT</option>
-                  <option value="FSI">FSI</option>
-                </select>
-              </div>
-              <div class="form-group col-md-2">
-                <label for="inputState">Typ</label>
-                <select id="inputState" class="form-control" name="typ">
-                  <option value="P" selected>Povinný</option
->                  <option value="PV">Povinno-voliteľný</option>
-                  <option value="V">Voliteľný</option>
-                </select>
-              </div>
-              <div class="form-group col-md-1">
-                <label for="inputPassword4">Študijný odbor</label>
-                <select id="inputState" class="form-control" name="odbor">
-                  <?php
-                    $garant->show_odbor();
-                  ?>
+              <div class="form-group col-md-2 required">
+                <label for="inputState">Typ pravidla</label>
+                <select id="inputState" class="form-control" name="pravidlo" required>
+                <?php
+                  $admin->show_rules();
+                ?>
                 </select>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-3">
-                <label for="inputEmail4">Semester</label>
-                <select id="inputState" class="form-control" name="semester">
-                  <option value="Zimny" selected>Zimný</option>
-                  <option value="Letny">Letný</option>
+              <div class="form-group col-md-2 required">
+                <label class="control-label" for="inputAddress">Garant</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Meno" name="garant" required>
+              </div>
+              <div class="form-group required col-md-2">
+                <label class="control-label" for="inputZip">Odbor</label>
+                <input type="text" class="form-control" id="inputZip" placeholder="Doplnte sem názov odboru" name="odbor" value="<?php echo $options["Odbor"]?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputState">Forma štúdia</label>
+                <select id="inputState" class="form-control" name="forma">
+                  <option value="prezenčná" selected>Prezenčná</option>
+                  <option value="externá">Externá</option>
                 </select>
               </div>
-              <div class="form-group col-md-3">
-                <label for="inputEmail4">Rocnik</label>
-                <select id="inputState" class="form-control" name="rocnik">
-                  <option value="1" selected>1</option>
+              <div class="form-group col-md-2">
+                <label for="inputState">Doba štúdia</label>
+                <select id="inputState" class="form-control" name="doba">
+                  <option value="1">1</option>
                   <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="3" selected>3</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
               </div>
             </div>
+            Prvky označené <span style="color: #d00;position: relative; margin-left: 4px; top: -6px;">*</span> sú povinné.
+            <br>
+            <br>
             <button type="submit" name="Submit" class="btn btn-primary">Uložiť</button>
           </form>
         </main>
@@ -154,7 +144,7 @@
 </body>
 </html>
 <?php
-  } else {
-    header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/");
-  }
+}else {
+  header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/");
+}
 ?>
