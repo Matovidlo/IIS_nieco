@@ -221,12 +221,11 @@ HEREDOC;
 
 	public function edit_subject()
 	{
-		if (!empty($_POST["nazov"]) && !empty($_POST["skratka"]) && !empty($_POST["kredity"]) && !empty($_POST["cap"]) && !empty($_POST["faculty"]) && !empty($_POST["typ"]) && !empty($_POST["odbor"]) && !empty($_POST["rok"]) && !empty($_POST["semester"]) && !empty($_POST["rocnik"])) {
+		if (!empty($_POST["nazov"]) && !empty($_POST["skratka"]) && !empty($_POST["kredity"]) && !empty($_POST["cap"]) && !empty($_POST["faculty"]) && !empty($_POST["typ"]) && !empty($_POST["odbor"]) && !empty($_POST["semester"]) && !empty($_POST["rocnik"])) {
 
 			$get_skratka = mysqli_real_escape_string($this->mysql, $_GET["skr"]);
 			$get_rok = mysqli_real_escape_string($this->mysql, $_GET["rok"]);
 
-			$rok = mysqli_real_escape_string($this->mysql, $_POST["rok"]);
 			$nazov = mysqli_real_escape_string($this->mysql, $_POST["nazov"]);
 			$skr = mysqli_real_escape_string($this->mysql, $_POST["skratka"]);
 			$odbor = mysqli_real_escape_string($this->mysql, $_POST["odbor"]);
@@ -235,9 +234,10 @@ HEREDOC;
 			$cap = mysqli_real_escape_string($this->mysql, $_POST["cap"]);
 			$kredity = mysqli_real_escape_string($this->mysql, $_POST["kredity"]);
 			$semester = mysqli_real_escape_string($this->mysql, $_POST["semester"]);
-			$rocnik =  mysqli_real_escape_string($this->mysql, $_POST["rocnik"]);
+			$rocnik = mysqli_real_escape_string($this->mysql, $_POST["rocnik"]);
 
-			$query = "UPDATE Predmet SET Skratka_predmetu='$skr', Ak_rok='$rok', Nazov='$nazov', Typ='$typ', Obsadenost=$cap, Fakulta='$faculty', Semester='$semester', Limit_prihlasenych=$cap, Skratka_programu='$odbor', Pocet_kreditov=$kredity, Rocnik=$rocnik WHERE Ak_rok='$get_rok' AND Skratka_predmetu='$get_skratka';";
+			$odbor = explode('-', $odbor);
+			$query = "UPDATE Predmet SET Skratka_predmetu='$skr', Ak_rok='$odbor[1]', Nazov='$nazov', Typ='$typ', Obsadenost=$cap, Fakulta='$faculty', Semester='$semester', Limit_prihlasenych=$cap, Skratka_programu='$odbor[0]', Pocet_kreditov=$kredity, Rocnik=$rocnik WHERE Ak_rok='$get_rok' AND Skratka_predmetu='$get_skratka';";
 
 			$result = mysqli_query($this->mysql, $query);
 			if ($result) {
@@ -265,7 +265,7 @@ HEREDOC;
 			$rocnik =  mysqli_real_escape_string($this->mysql, $_POST["rocnik"]);
 			$odbor = explode('-', $odbor);
 
-			$query = "INSERT INTO Predmet VALUES ('$skr','" . date("Y") . "', '$nazov', '$typ', $cap, 'ZaZk', '$faculty', '$semester', $cap, '$odbor[0]', $kredity, $rocnik);";
+			$query = "INSERT INTO Predmet VALUES ('$skr','$odbor[1]', '$nazov', '$typ', $cap, 'ZaZk', '$faculty', '$semester', $cap, '$odbor[0]', $kredity, $rocnik);";
 			$result = mysqli_query($this->mysql, $query);
 			// print_r($query);
 			if ($result) {
@@ -285,7 +285,15 @@ HEREDOC;
 
 	public function show_odbor()
 	{
-		$query = "SELECT Skratka_programu, Ak_rok FROM Studijny_program";
+		$query = "SELECT Skratka_programu, Ak_rok FROM Studijny_program NATURAL JOIN Predmet WHERE Skratka_predmetu='" . $_GET["skr"] . "' AND Ak_rok='" . $_GET["rok"] . "'";
+		// echo $query;
+		$result = mysqli_query($this->mysql, $query);
+		$data = mysqli_fetch_assoc($result);
+		$prog = $data["Skratka_programu"];
+		$rok = $data["Ak_rok"];
+		echo "<option value='$prog-$rok'> $prog-$rok</option>";;
+
+		$query = "SELECT Skratka_programu, Ak_rok FROM Studijny_program WHERE Skratka_programu<>'$prog'";
 		$result = mysqli_query($this->mysql, $query);
 		while($row = $result->fetch_assoc()) {
 			$prog = $row["Skratka_programu"];

@@ -16,12 +16,12 @@ if ($result = mysqli_store_result($mysql)) {
 }
 /* print divider */
 if (mysqli_more_results($mysql)) {
-    printf("INSERT\n");
+    //printf("INSERT\n");
 }
 } while (mysqli_next_result($mysql));
 }
 mysqli_close($mysql);
-// header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/"); /* Redirect browser */
+header("Location: http://www.stud.fit.vutbr.cz/~xvasko12/IIS/"); /* Redirect browser */
 // exit();
 
 // die();

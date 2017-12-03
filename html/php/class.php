@@ -345,14 +345,16 @@ HEREDOC;
 		$strop = $data["Rocny_kreditovy_strop"];
 
 
-		$query = "SELECT Skratka_predmetu FROM Predmet NATURAL JOIN Prihlasuje WHERE Login='" . $_SESSION["login"] . "'";
+		$query = "SELECT Skratka_predmetu FROM Predmet NATURAL JOIN Prihlasuje WHERE Login='" . $_SESSION["login"] . "' AND Prihlasuje.Ak_rok='" . date("Y") . "'";
 		$result = mysqli_query($this->mysql, $query);
 		$registered_already = array();
 		while ($row = $result->fetch_assoc()) {
 			array_push($registered_already, $row["Skratka_predmetu"]);
 		}
 
-		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Zimny'";
+		$delete = false;
+
+		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov, Obsadenost FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Zimny'";
 		$result = mysqli_query($this->mysql, $query);
 
 
@@ -364,68 +366,89 @@ HEREDOC;
 			while($row = $result->fetch_assoc()) {
 				$predmet = $row['Skratka_predmetu'];
 				if(isset($_POST["$predmet"])) {
+					if ($row["Obsadenost"] == 0) {
+						continue;
+					}
 					$accumulator += $row["Pocet_kreditov"];
 					$this->insert_subject($predmet);
 					array_push($all_subjects, $predmet);
 				} else {
 					$this->delete_subject($predmet);
+					$this->inc_obs($predmet);
 				}
 			}
 			if ($accumulator < 15) {
-				$this->delete_registration();
+				// $this->delete_registration();
 				$fail = true;
 			} else {
-				$swal = new Swal_select("success", "Predmety", "boli registrovane");
-				$swal->print_msg();
 			}
 			$summary = $accumulator;
 		}
 
-		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Letny'";
+		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov, Obsadenost FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Letny'";
 		$result = mysqli_query($this->mysql, $query);
 		if ($result->num_rows > 0) {
 			$accumulator = 0;
 			while($row = $result->fetch_assoc()) {
 				$predmet = $row['Skratka_predmetu'];
 				if(isset($_POST["$predmet"])) {
+					if ($row["Obsadenost"] == 0) {
+						continue;
+					}
 					$accumulator += $row["Pocet_kreditov"];
 					array_push($all_subjects, $predmet);
 					$this->insert_subject($predmet);
 				} else {
 					$this->delete_subject($predmet);
+					$this->inc_obs($predmet);
 				}
 			}
+
 			if ($accumulator < 15 || $fail) {
-				$this->delete_registration();
 				$fail = true;
 
 			} else {
-				$swal = new Swal_select("success", "Predmety", "boli registrovane");
-				$swal->print_msg();
 			}
 			$summary += $accumulator;
 		}
 		if ($summary > $strop || $fail) {
-			$this->delete_registration();
-			$fail =true;
+			$difference = array_diff($all_subjects, $registered_already);
+			$this->delete_registration($difference);
+			return;
 		}
+
 		if ($fail) {
 			$this->change_capacity($registered_already, 1);
 		}
 
 		$difference = array_diff($all_subjects, $registered_already);
-		if (!empty($difference) && !$fail)
+		if (!empty($difference) && !$fail){
 			$this->change_capacity($difference, -1);
+		}
 
 		$difference = array_diff($registered_already, $all_subjects);
-		if (!empty($difference) && !$fail)
+		if (!empty($difference) && !$fail){
 			$this->change_capacity($difference, 1);
+		}
 
+		$swal = new Swal_select("success", "Predmety", "boli registrovane");
+		$swal->print_msg();
 		// DEBUG
 		// echo " <pre> Uz registrovane" . print_r($registered_already) . " Registracia POST:" . print_r($all_subjects) . " VYSLEDOK" . print_r($difference) ."</pre>";
 		unset($_SESSION["obor"]);
 	}
 
+
+	private function inc_obs($subj)
+	{
+		$query = "SELECT Obsadenost FROM Predmet WHERE Skratka_predmetu='$subj'";
+		$result = mysqli_query($this->mysql, $query);
+		$data = mysqli_fetch_assoc($result);
+		$current = $data["Obsadenost"] + 1;
+
+		$query = "UPDATE Predmet SET Obsadenost=$current WHERE Skratka_predmetu='$subj'";
+		$result = mysqli_query($this->mysql, $query);
+	}
 
 	private function add_delete_capacity($subject)
 	{
@@ -479,9 +502,11 @@ EOL;
 		}
 	}
 
-	private function delete_registration() {
-		$query = "DELETE FROM Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "'";
-		$result = mysqli_query($this->mysql, $query);
+	private function delete_registration($arr) {
+		foreach($arr as $value) {
+			$query = "DELETE FROM Prihlasuje WHERE Prihlasuje.Skratka_predmetu='$value'";
+			$result = mysqli_query($this->mysql, $query);
+		}
 	}
 
 	// end of class

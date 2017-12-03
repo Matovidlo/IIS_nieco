@@ -93,11 +93,11 @@ Skratka_programu VARCHAR(3),
 Pocet_kreditov INT CHECK (Pocet_kreditov >0),
 Rocnik INT CHECK (Rocnik > 0 and Rocnik <= 6),
 PRIMARY KEY (Ak_rok, Skratka_predmetu),
-FOREIGN KEY (Ak_rok,Skratka_programu) REFERENCES Studijny_program (Ak_rok,Skratka_programu)
+FOREIGN KEY (Ak_rok, Skratka_programu) REFERENCES Studijny_program (Ak_rok,Skratka_programu)
 );
 
 
-ALTER TABLE Prihlasuje ADD CONSTRAINT fk_Predmet FOREIGN KEY (Ak_rok,Skratka_predmetu) REFERENCES Predmet(Ak_rok,Skratka_predmetu);
+ALTER TABLE Prihlasuje ADD CONSTRAINT fk_Predmet FOREIGN KEY (Ak_rok, Skratka_predmetu) REFERENCES Predmet(Ak_rok, Skratka_predmetu);
 ALTER TABLE Prihlasuje ADD CONSTRAINT fk_Student FOREIGN KEY (Login) REFERENCES Student(Login);
 
 
@@ -109,6 +109,7 @@ INSERT INTO Pravidlo VALUES(1,180,2,50);
 
 INSERT INTO Studijny_program VALUES('BIT','Bakalarsky','Informatika','2016', '2020', 3,'prezenčná',1, 'Informatika je super');
 INSERT INTO Studijny_program VALUES('BGR','Bakalarsky','Grafika','2016', '2021', 3,'prezenčná',1, 'Grafika matika');
+INSERT INTO Studijny_program VALUES('BGR','Bakalarsky','Grafika','2017', '2021', 3,'prezenčná',1, 'Grafika matika');
 INSERT INTO Studijny_program VALUES('BIT','Bakalarsky','Informatika','2017', '2021', 3,'externá',2, 'Blablacar');
 INSERT INTO Studijny_program VALUES('BIT','Bakalarsky','Bioinfromatika','2015', '2020', 2,'prezenčná',3, 'Slimaky');
 INSERT INTO Studijny_program VALUES('MBI','Magistersky','Bioinfromatika','2015', '2021', 2,'prezenčná',3, 'Geneticke algoritmy');
@@ -183,12 +184,11 @@ INSERT INTO Predmet VALUES ('IFJ', '2016', 'Formálne jazyky','P',410,'ZaZk','FI
 INSERT INTO Predmet VALUES ('IPP', '2017', '00P','P',420,'Zk','FIT', 'Letny', 600, 'BIT',7, 2);
 INSERT INTO Predmet VALUES ('IAL', '2017', 'Algoritmy','P',420,'ZaZk','FIT', 'Zimny', 600, 'BIT',5, 2);
 INSERT INTO Predmet VALUES ('AGS', '2017', 'Agentní a multiagentní systémy', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
--- INSERT INTO Predmet VALUES ('IAL', '2017', 'Algoritmy', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('AIS', '2017', 'Analýza a návrh informačních systémů', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('IAN', '2017', 'Analýza binárního kódu', 'P', 420, 'Klz', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('JA3', '2017', 'Angličtina: konverzace', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('AEU', '2017', 'Angličtina pro Evropu', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('AIT', '2017', 'Angličtina pro IT', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
+INSERT INTO Predmet VALUES ('IAN', '2017', 'Analýza binárního kódu', 'P', 0, 'Klz', 'FIT', 'Letny', 600, 'BIT', 5, 2);
+INSERT INTO Predmet VALUES ('JA3', '2017', 'Angličtina: konverzace', 'P', 1, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
+INSERT INTO Predmet VALUES ('AEU', '2017', 'Angličtina pro Evropu', 'P', 2, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
+INSERT INTO Predmet VALUES ('AIT', '2017', 'Angličtina pro IT', 'P', 0, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('FCE', '2017', 'Angličtina: příprava na zkoušku FCE', 'P', 420, 'Zá', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('PDD', '2017', 'Aplikace paralelních počítačů', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('EVO', '2017', 'Aplikované evoluční algoritmy', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
@@ -203,12 +203,12 @@ INSERT INTO Predmet VALUES ('BIN', '2017', 'Biologií inspirované počítače',
 INSERT INTO Predmet VALUES ('IW1', '2017', 'Desktop systémy Microsoft Windows', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('IDA', '2017', 'Diskrétní matematika', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('DJA', '2017', 'Dynamické jazyky', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('EIP', '2017', 'Ekonomie informačních produktů', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('IEL', '2017', 'Elektronika pro informační technologie', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('EUD', '2017', 'Evoluční a nekonvenční hardware', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('EVD', '2017', 'Evoluční výpočetní techniky', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('FAV', '2017', 'Formální analýza a verifikace', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('FAD', '2017', 'Formální analýza programů', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
+INSERT INTO Predmet VALUES ('EIP', '2017', 'Ekonomie informačních produktů', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('IEL', '2017', 'Elektronika pro informační technologie', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('EUD', '2017', 'Evoluční a nekonvenční hardware', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('EVD', '2017', 'Evoluční výpočetní techniky', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('FAV', '2017', 'Formální analýza a verifikace', 'P', 420, 'Zazk', 'FIT', 'Zimny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('FAD', '2016', 'Formální analýza programů', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'BGR', 5, 2);
 INSERT INTO Predmet VALUES ('FYO', '2015', 'Fyzikální optika', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'MBI', 5, 2);
 INSERT INTO Predmet VALUES ('IFS', '2015', 'Fyzikální seminář', 'P', 420, 'Zá', 'FIT', 'Zimny', 600, 'MBI', 5, 2);
 INSERT INTO Predmet VALUES ('GAL', '2015', 'Grafové algoritmy', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'MBI', 5, 2);
@@ -225,12 +225,12 @@ INSERT INTO Predmet VALUES ('KKO', '2015', 'Kódování a komprese dat', 'P', 42
 INSERT INTO Predmet VALUES ('HKO', '2015', 'Komunikační dovednosti', 'P', 420, 'Zá', 'FIT', 'Zimny', 600, 'MBI', 5, 2);
 INSERT INTO Predmet VALUES ('HKA', '2015', 'Konflikty a asertivita', 'P', 420, 'Zá', 'FIT', 'Zimny', 600, 'MBI', 5, 2);
 INSERT INTO Predmet VALUES ('KRY', '2015', 'Kryptografie', 'P', 420, 'Zazk', 'FIT', 'Letny', 600, 'MBI', 5, 2);
-INSERT INTO Predmet VALUES ('LOG', '2017', 'Logika', 'P', 420, 'Zazk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('MPR', '2017', 'Management projektů', 'P', 420, 'Zazk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('MEK', '2017', 'Manažerská ekonomika', 'P', 420, 'Zazk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('MAR', '2017', 'Marketing', 'P', 420, 'Zazk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('IMA', '2017', 'Matematická analýza', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
-INSERT INTO Predmet VALUES ('MLD', '2017', 'Matematická logika', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
+INSERT INTO Predmet VALUES ('LOG', '2017', 'Logika', 'P', 1, 'Zazk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('MPR', '2017', 'Management projektů', 'P', 0, 'Zazk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('MEK', '2017', 'Manažerská ekonomika', 'P', 420, 'Zazk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('MAR', '2017', 'Marketing', 'P', 420, 'Zazk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('IMA', '2016', 'Matematická analýza', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
+INSERT INTO Predmet VALUES ('MLD', '2016', 'Matematická logika', 'P', 420, 'Zk', 'FIT', 'Letny', 600, 'BGR', 5, 2);
 INSERT INTO Predmet VALUES ('MAT', '2017', 'Matematické struktury v informatice', 'P', 420, 'Zk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('IMF', '2017', 'Matematické základy fuzzy logiky', 'P', 420, 'Klz', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('ISM', '2017', 'Matematický seminář', 'P', 420, 'Zá', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
@@ -249,33 +249,8 @@ INSERT INTO Prihlasuje VALUES('xvasko14', 'IDS', '2017');
 INSERT INTO Prihlasuje VALUES('xvasko14', 'IPP', '2017');
 INSERT INTO Prihlasuje VALUES('xvasko14', 'AGS', '2017');
 INSERT INTO Prihlasuje VALUES('xtamas01', 'IPP', '2017');
-INSERT INTO Prihlasuje VALUES('xpotte02', 'IOS', '2017');
-INSERT INTO Prihlasuje VALUES('xmessi03', 'PKS', '2017');
-INSERT INTO Prihlasuje VALUES('xmessi03', 'PIS', '2017');
-INSERT INTO Prihlasuje VALUES('ikanich', 'IFS', '2017');
 INSERT INTO Prihlasuje VALUES('ikanich', 'MPR', '2017');
-INSERT INTO Prihlasuje VALUES('xabale00', 'MPR', '2017');
-INSERT INTO Prihlasuje VALUES('xabale00', 'IFS', '2017');
-INSERT INTO Prihlasuje VALUES('xdante01', 'ITY', '2017');
-INSERT INTO Prihlasuje VALUES('xdante01', 'IOS', '2017');
-INSERT INTO Prihlasuje VALUES('xhokan31', 'IFS', '2017');
-INSERT INTO Prihlasuje VALUES('xhokan31', 'IJC', '2017');
-INSERT INTO Prihlasuje VALUES('xblaho24', 'ZPD', '2017');
-INSERT INTO Prihlasuje VALUES('xblaho24', 'AGS', '2017');
-INSERT INTO Prihlasuje VALUES('xorman00', 'ZPD', '2017');
-INSERT INTO Prihlasuje VALUES('xblaho24', 'AGS', '2017');
-INSERT INTO Prihlasuje VALUES('xorsza00', 'ZPD', '2017');
-INSERT INTO Prihlasuje VALUES('xorsza00', 'AGS', '2017');
-INSERT INTO Prihlasuje VALUES('xormos12', 'IPP', '2017');
-INSERT INTO Prihlasuje VALUES('xormos12', 'ISM', '2017');
-INSERT INTO Prihlasuje VALUES('xchlan02', 'MPR', '2017');
-INSERT INTO Prihlasuje VALUES('xchlan02', 'IFS', '2017');
-INSERT INTO Prihlasuje VALUES('xricht00', 'IMN', '2017');
-INSERT INTO Prihlasuje VALUES('xricht00', 'PAS', '2017');
-INSERT INTO Prihlasuje VALUES('xvasko14', 'IFJ', '2016');
 INSERT INTO Prihlasuje VALUES('xtamas01', 'IDS', '2017');
-INSERT INTO Prihlasuje VALUES('xtamas01', 'IPP', '2017');
-INSERT INTO Prihlasuje VALUES('xpotte02', 'IDS', '2017');
 INSERT INTO Prihlasuje VALUES('xmessi03', 'IDS', '2017');
 INSERT INTO Prihlasuje VALUES('xpasty09', 'IDS', '2017');
 
