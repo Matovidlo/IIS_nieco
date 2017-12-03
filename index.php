@@ -62,7 +62,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-slack sidebar" style="">
             <div style="">
                 <div style="">
-                  <img src="./img/logo_sh.png" style="height: 85px;">
+                  <img src="./img/logo_sh.png" style="width:100%;">
                 </div>
             </div>
           <ul class="nav nav-pills  flex-column">
@@ -158,7 +158,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-slack sidebar" style="">
             <div style="">
                 <div style="">
-                    <img src="./img/logo_sh.png" style="height: 85px;">
+                    <img src="./img/logo_sh.png" style="width:100%;">
                 </div>
             </div>
           <ul class="nav nav-pills  flex-column">
@@ -254,7 +254,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-slack sidebar" style="">
             <div style="">
                 <div style="">
-                  <img src="./img/logo_sh.png" style="height: 85px;">
+                  <img src="./img/logo_sh.png" style="width:100%;">
                 </div>
             </div>
           <ul class="nav nav-pills  flex-column">
