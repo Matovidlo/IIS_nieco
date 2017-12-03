@@ -1,19 +1,7 @@
 <html lang="en" class="gr__getbootstrap_com">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>IIS - Prehľad predmetov</title>
-
-    <!-- Bootstrap core CSS -->
-
-    <!-- <script src="./bootstrap/js/bootstrap.min.js"></script> -->
-    <link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./html/template.css" rel="stylesheet">
-    <script src="./html/bootstrap/js/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./html/bootstrap/css/sweetalert.css">
+  <?php include 'head.php';?>
+  <title>IIS - Prehľad predmetov</title>
 </head>
 <?php
   session_start();
@@ -68,7 +56,10 @@
           <h2>Prehľad zapísaných predmetov</h2>
           <div class="table-responsive">
             <h3><?php $student->get_year(true); ?></h3>
-            <table class="table table-striped  table-hover">
+            <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
+              <input type="text" class="search_zima form-control" onkeyup="myFunction('winter', 0, 3)" placeholder="What you looking for?">
+            </div>
+            <table class="table table-striped results_winter table-hover">
               <thead>
                 <tr>
                   <th colspan="7">Zimný semester</th>
@@ -90,7 +81,10 @@
               </tbody>
             </table>
             <br>
-            <table class="table table-striped  table-hover">
+            <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
+              <input type="text" class="search_zima form-control" onkeyup="myFunction('summer', 0, 3)" placeholder="What you looking for?">
+            </div>
+            <table class="table table-striped results_summer table-hover">
               <thead>
                 <tr>
                   <th colspan="7">Letný semester</th>
@@ -206,7 +200,10 @@
 
           <h2>Prehľad predmetov</h2>
           <div class="table-responsive">
-            <table class="table table-striped  table-hover">
+            <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
+              <input type="text" class="search_zima form-control" onkeyup="myFunction('winter', 0, 3)" placeholder="What you looking for?">
+            </div>
+            <table class="table table-striped results_winter table-hover">
               <thead>
                 <tr>
                   <th colspan="9">Zimný semester</th>
@@ -231,7 +228,10 @@
               </tbody>
             </table>
             <br>
-            <table class="table table-striped  table-hover">
+            <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
+              <input type="text" class="search_zima form-control" onkeyup="myFunction('summer', 0, 3)" placeholder="What you looking for?">
+            </div>
+            <table class="table table-striped results_summer table-hover">
               <thead>
                 <tr>
                   <th colspan="9">Letný semester</th>
