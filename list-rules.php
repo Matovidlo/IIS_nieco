@@ -71,7 +71,7 @@
           <h2>Prehľad pravidiel</h2>
           <div class="table-responsive">
             <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
-              <input type="text" class="search_zima form-control" onkeyup="myFunction('rules', 0, -1)" placeholder="What you looking for?">
+              <input type="text" class="search_rules form-control" onkeyup="myFunction('rules', 0, -1)" placeholder="What you looking for?">
             </div>
             <table class="table table-striped results_rules table-hover">
               <thead>
