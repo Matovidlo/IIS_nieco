@@ -136,17 +136,11 @@ EOL;
 				// print_r($query);
 				if (mysqli_query($this->mysql, $query)) {
 					// echo "Success";
-					$swal = new Swal_select("success", "Heslo", "sa nezhoduje, prosím vyplňte znova");
-					$swal->print_msg();
 				} else {
-					$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
-					$swal->print_msg();
 					// echo "Fail";
 				}
 			}
 		}
-		$swal = new Swal_select("success", "Informácie", "boli zmenené");
-		$swal->print_msg();
 	}
 
 	public function show_subjects($term="Zimny")
@@ -285,14 +279,15 @@ HEREDOC;
 
 	public function show_odbor()
 	{
-		$query = "SELECT Skratka_programu, Ak_rok FROM Studijny_program NATURAL JOIN Predmet WHERE Skratka_predmetu='" . $_GET["skr"] . "' AND Ak_rok='" . $_GET["rok"] . "'";
-		// echo $query;
-		$result = mysqli_query($this->mysql, $query);
-		$data = mysqli_fetch_assoc($result);
-		$prog = $data["Skratka_programu"];
-		$rok = $data["Ak_rok"];
-		echo "<option value='$prog-$rok'> $prog-$rok</option>";;
-
+		if (isset($_GET["skr"]) && isset($_GET["rok"])) {
+			$query = "SELECT Skratka_programu, Ak_rok FROM Studijny_program NATURAL JOIN Predmet WHERE Skratka_predmetu='" . $_GET["skr"] . "' AND Ak_rok='" . $_GET["rok"] . "'";
+			// echo $query;
+			$result = mysqli_query($this->mysql, $query);
+			$data = mysqli_fetch_assoc($result);
+			$prog = $data["Skratka_programu"];
+			$rok = $data["Ak_rok"];
+			echo "<option value='$prog-$rok'> $prog-$rok</option>";;
+		}
 		$query = "SELECT Skratka_programu, Ak_rok FROM Studijny_program WHERE Skratka_programu<>'$prog'";
 		$result = mysqli_query($this->mysql, $query);
 		while($row = $result->fetch_assoc()) {

@@ -92,7 +92,6 @@ EOL;
 		$result = mysqli_query($this->mysql, $query);
 
 		while($row = $result->fetch_assoc()) {
-			print_r($row["Login"]);
 			$query = "DELETE FROM Zamestnanec WHERE Login='" . $row["Login"] . "'";
 			$qry = mysqli_query($this->mysql, $query);
 
