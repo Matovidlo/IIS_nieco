@@ -39,7 +39,7 @@
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-slack sidebar" style="">
             <div style="">
                 <div style="">
-                    <span>WISv0.5</span>
+                  <img src="../img/logo_sh.png" style="height: 85px;">
                 </div>
             </div>
           <ul class="nav nav-pills  flex-column">
