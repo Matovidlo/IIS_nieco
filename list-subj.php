@@ -57,7 +57,7 @@
           <div class="table-responsive">
             <h3><?php $student->get_year(true); ?></h3>
             <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
-              <input type="text" class="search_zima form-control" onkeyup="myFunction('winter', 0, 3)" placeholder="What you looking for?">
+              <input type="text" class="search_winter form-control" onkeyup="myFunction('winter', 0, 3)" placeholder="What you looking for?">
             </div>
             <table class="table table-striped results_winter table-hover">
               <thead>
@@ -82,7 +82,7 @@
             </table>
             <br>
             <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
-              <input type="text" class="search_zima form-control" onkeyup="myFunction('summer', 0, 3)" placeholder="What you looking for?">
+              <input type="text" class="search_summer form-control" onkeyup="myFunction('summer', 0, 3)" placeholder="What you looking for?">
             </div>
             <table class="table table-striped results_summer table-hover">
               <thead>
@@ -201,7 +201,7 @@
           <h2>Prehľad predmetov</h2>
           <div class="table-responsive">
             <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
-              <input type="text" class="search_zima form-control" onkeyup="myFunction('winter', 0, 3)" placeholder="What you looking for?">
+              <input type="text" class="search_winter form-control" onkeyup="myFunction('winter', 0, 3)" placeholder="What you looking for?">
             </div>
             <table class="table table-striped results_winter table-hover">
               <thead>
@@ -229,7 +229,7 @@
             </table>
             <br>
             <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
-              <input type="text" class="search_zima form-control" onkeyup="myFunction('summer', 0, 3)" placeholder="What you looking for?">
+              <input type="text" class="search_summer form-control" onkeyup="myFunction('summer', 0, 3)" placeholder="What you looking for?">
             </div>
             <table class="table table-striped results_summer table-hover">
               <thead>
