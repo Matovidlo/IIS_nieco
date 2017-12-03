@@ -12,6 +12,8 @@
     <!-- <script src="./bootstrap/js/bootstrap.min.js"></script> -->
     <link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="./html/template.css" rel="stylesheet">
+    <script src="./html/bootstrap/js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./html/bootstrap/css/sweetalert.css">
 </head>
 <?php
   session_start();

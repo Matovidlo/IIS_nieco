@@ -84,7 +84,7 @@ Skratka_predmetu CHAR(3),
 Ak_rok YEAR NOT NULL,
 Nazov VARCHAR(40) NOT NULL,
 Typ VARCHAR(3) NOT NULL,
-Obsadenost INT NOT NULL,
+Obsadenost INT CHECK(Obsadenost >= 0),
 Ukoncenie_predmetu VARCHAR(5) NOT NULL,
 Fakulta VARCHAR(40) NOT NULL,
 Semester VARCHAR(8) NOT NULL,
@@ -102,10 +102,8 @@ ALTER TABLE Prihlasuje ADD CONSTRAINT fk_Student FOREIGN KEY (Login) REFERENCES 
 
 
 
-
-
 INSERT INTO Pravidlo
-VALUES(1,180,2,30);
+VALUES(1,180,2,50);
 INSERT INTO Pravidlo
 VALUES(2,60,1,70);
 INSERT INTO Pravidlo

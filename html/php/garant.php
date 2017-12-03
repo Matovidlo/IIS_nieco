@@ -2,7 +2,6 @@
 
 class Garant {
 	private $login;
-	// private $pole_rokov = array();
 	private $mysql;
 
 	public function __construct($login)
@@ -17,9 +16,8 @@ class Garant {
 		$query = "UPDATE Osoba SET $type='$post'WHERE Osoba.Login='$where'";
 		$result = mysqli_query($this->mysql, $query);
 		return $result;
-		// return true;
 	}
-	//  TODO pracuje pre ustav
+
 	public function change_information()
 	{
 		$str_time = time();
@@ -29,10 +27,10 @@ class Garant {
 			if (!empty($_POST["heslo_potvrd"]) && is_string($_POST["heslo_potvrd"])) {
 				if ($_POST["heslo"] != $_POST["heslo_potvrd"]) {
 					// TODO swal
-					die();
+					exit();
 				}
 			} else {
-				die();
+				exit();
 			}
 
 			$heslo = base64_encode(hash("sha256", $_POST["heslo"], true));
@@ -147,7 +145,6 @@ EOL;
 
 	public function show_subjects($term="Zimny")
 	{
-		// TODO iba tento rok? alebo vsetky
 		$query = "SELECT * FROM Predmet WHERE Predmet.Semester='$term'";
 		$result = mysqli_query($this->mysql, $query);
 		if ($result->num_rows > 0) {
@@ -258,7 +255,7 @@ HEREDOC;
 			$rocnik =  mysqli_real_escape_string($this->mysql, $_POST["rocnik"]);
 			$odbor = explode('-', $odbor);
 
-			$query = "INSERT INTO Predmet VALUES ('$skr','$odbor[1]', '$nazov', '$typ', $cap, 'ZaZk', '$faculty', '$semester', $cap, '$odbor[0]', $kredity, $rocnik);";
+			$query = "INSERT INTO Predmet VALUES ('$skr','" . date("Y") . "', '$nazov', '$typ', $cap, 'ZaZk', '$faculty', '$semester', $cap, '$odbor[0]', $kredity, $rocnik);";
 			$result = mysqli_query($this->mysql, $query);
 			// print_r($query);
 			if ($result) {
@@ -268,8 +265,6 @@ HEREDOC;
 			}
 		}
 	}
-	// TODO niekto urobte update predmetu tu vyssie je predloha ako to ma vyzerat
-
 
 	public function show_odbor()
 	{
