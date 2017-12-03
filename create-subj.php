@@ -13,21 +13,8 @@
 ?>
 <html lang="en" class="gr__getbootstrap_com">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    <?php include 'head.php';?>
     <title>IIS - Pridaj predmet</title>
-
-    <!-- Bootstrap core CSS -->
-
-    <!-- <script src="./bootstrap/js/bootstrap.min.js"></script> -->
-  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
-  <link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./html/template.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 </head>
 
 <body data-gr-c-s-loaded="true" style="">

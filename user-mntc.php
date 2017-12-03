@@ -17,20 +17,8 @@
 
 <html lang="en" class="gr__getbootstrap_com">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>IIS - Prehľad užívateľov</title>
-
-    <!-- Bootstrap core CSS -->
-
-    <!-- <script src="./bootstrap/js/bootstrap.min.js"></script> -->
-    <link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./html/template.css" rel="stylesheet">
-    <script src="./html/bootstrap/js/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./html/bootstrap/css/sweetalert.css">
+  <?php include 'head.php';?>
+  <title>IIS - Prehľad užívateľov</title>
 </head>
 
 <body data-gr-c-s-loaded="true" style="">
