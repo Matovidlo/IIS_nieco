@@ -22,17 +22,17 @@ class Garant {
 	{
 		$str_time = time();
 		$_SESSION['timestamp'] = $str_time;
+		$failure = false;
 		if (!empty($_POST["heslo"]) && is_string($_POST["heslo"])) {
-
 			if (!empty($_POST["heslo_potvrd"]) && is_string($_POST["heslo_potvrd"])) {
 				if ($_POST["heslo"] != $_POST["heslo_potvrd"]) {
-					// TODO swal
-					exit();
+					$failure = true;
+					$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+					$swal->print_msg();
 				}
 			} else {
-				exit();
+				$failure = true;
 			}
-
 			$heslo = base64_encode(hash("sha256", $_POST["heslo"], true));
 			$this->check_update_query($heslo, $this->login, "Heslo");
 		}
@@ -49,51 +49,52 @@ class Garant {
 		if (!empty($_POST["adresa"]) && is_string($_POST["adresa"])) {
 			$this->check_update_query($_POST["adresa"], $this->login, "Adresa");
 		}
-		// TODO swal
-		// if (isset($_POST[""])) {
-		// 	$this->check_update_query($POST["adresa"], $this->login);
-		// }
+		if (!$failure) {
+			$swal = new Swal_select("success", "Informácie", "boli zmenené");
+			$swal->print_msg();
+		}
+
 	}
 
-		public function generate_division()
-		{
-		$query = "SELECT * FROM Studijny_program";
-		$result = mysqli_query($this->mysql, $query);
-		$curr = 0;
-		if ($result->num_rows > 0) {
-			while( $row = $result->fetch_assoc()) {
-				if (($curr % 3) === 0) {
-					echo <<<EOL
-					<div class="row">
-						<div class="col">
-						<div class="card">
-							<h4 class="card-header">{$row["Odbor"]}</h4>
-							<div class="card-body">
-								<h4 class="card-title">Detaily</h4>
-								<h6 class="card-subtitle mb-2 text-muted"><b>Typ:</b> {$row["Typ_studia"]}</h6>
-								<h6 class="card-subtitle mb-2 text-muted"><b>Skratka programu:</b> {$row["Skratka_programu"]}</h6>
-								<h6 class="card-subtitle mb-2 text-muted"><b>Akreditácia do:</b> {$row["Akreditacia"]}</h6>
-								<p class="card-text">{$row["Popis"]}.</p>
-								<a href="edit-field.php?skr={$row["Skratka_programu"]}&rok={$row["Ak_rok"]}" class="btn btn-secondary">Upraviť</a>
-							</div>
-						 </div>
-					</div>
+	public function generate_division()
+	{
+	$query = "SELECT * FROM Studijny_program";
+	$result = mysqli_query($this->mysql, $query);
+	$curr = 0;
+	if ($result->num_rows > 0) {
+		while( $row = $result->fetch_assoc()) {
+			if (($curr % 3) === 0) {
+				echo <<<EOL
+				<div class="row">
+					<div class="col">
+					<div class="card">
+						<h4 class="card-header">{$row["Odbor"]}</h4>
+						<div class="card-body">
+							<h4 class="card-title">Detaily</h4>
+							<h6 class="card-subtitle mb-2 text-muted"><b>Typ:</b> {$row["Typ_studia"]}</h6>
+							<h6 class="card-subtitle mb-2 text-muted"><b>Skratka programu:</b> {$row["Skratka_programu"]}</h6>
+							<h6 class="card-subtitle mb-2 text-muted"><b>Akreditácia do:</b> {$row["Akreditacia"]}</h6>
+							<p class="card-text">{$row["Popis"]}.</p>
+							<a href="edit-field.php?skr={$row["Skratka_programu"]}&rok={$row["Ak_rok"]}" class="btn btn-secondary">Upraviť</a>
+						</div>
+					 </div>
+				</div>
 EOL;
-				} else {
-					echo <<<EOL
-						<div class="col">
-						<div class="card">
-							<h4 class="card-header">{$row["Odbor"]}</h4>
-							<div class="card-body">
-								<h4 class="card-title">Detaily</h4>
-								<h6 class="card-subtitle mb-2 text-muted"><b>Typ:</b> {$row["Typ_studia"]}</h6>
-								<h6 class="card-subtitle mb-2 text-muted"><b>Skratka programu:</b> {$row["Skratka_programu"]}</h6>
-								<h6 class="card-subtitle mb-2 text-muted"><b>Akreditácia do:</b> {$row["Akreditacia"]}</h6>
-								<p class="card-text">{$row["Popis"]}.</p>
-								<a href="edit-field.php?skr={$row["Skratka_programu"]}&rok={$row["Ak_rok"]}" class="btn btn-secondary">Upraviť</a>
-							</div>
-						 </div>
-						 </div>
+			} else {
+				echo <<<EOL
+					<div class="col">
+					<div class="card">
+						<h4 class="card-header">{$row["Odbor"]}</h4>
+						<div class="card-body">
+							<h4 class="card-title">Detaily</h4>
+							<h6 class="card-subtitle mb-2 text-muted"><b>Typ:</b> {$row["Typ_studia"]}</h6>
+							<h6 class="card-subtitle mb-2 text-muted"><b>Skratka programu:</b> {$row["Skratka_programu"]}</h6>
+							<h6 class="card-subtitle mb-2 text-muted"><b>Akreditácia do:</b> {$row["Akreditacia"]}</h6>
+							<p class="card-text">{$row["Popis"]}.</p>
+							<a href="edit-field.php?skr={$row["Skratka_programu"]}&rok={$row["Ak_rok"]}" class="btn btn-secondary">Upraviť</a>
+						</div>
+					 </div>
+					 </div>
 EOL;
 				}
 				if (($curr % 3) === 2) {
@@ -135,12 +136,17 @@ EOL;
 				// print_r($query);
 				if (mysqli_query($this->mysql, $query)) {
 					// echo "Success";
+					$swal = new Swal_select("success", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+					$swal->print_msg();
 				} else {
+					$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+					$swal->print_msg();
 					// echo "Fail";
 				}
 			}
 		}
-		//TODO swal
+		$swal = new Swal_select("success", "Informácie", "boli zmenené");
+		$swal->print_msg();
 	}
 
 	public function show_subjects($term="Zimny")
@@ -235,7 +241,11 @@ HEREDOC;
 
 			$result = mysqli_query($this->mysql, $query);
 			if ($result) {
+				$swal = new Swal_select("success", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+				$swal->print_msg();
 			} else {
+				$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+				$swal->print_msg();
 			}
 		}
 	}
@@ -259,10 +269,17 @@ HEREDOC;
 			$result = mysqli_query($this->mysql, $query);
 			// print_r($query);
 			if ($result) {
+				$swal = new Swal_select("success", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+				$swal->print_msg();
 				// echo "Success";
 			} else {
+				$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+				$swal->print_msg();
 				// echo "failure";
 			}
+		} else {
+			$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
+			$swal->print_msg();
 		}
 	}
 

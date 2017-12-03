@@ -128,8 +128,14 @@ EOL;
 		mysqli_query($this->mysql, $query);
 
 		$query = "DELETE FROM Studijny_program WHERE Skratka_programu='$program' AND Ak_rok=$rok";
-		mysqli_query($this->mysql, $query);
-
+		$result = mysqli_query($this->mysql, $query);
+		if ($result) {
+			$swal = new Swal_select("success", "Informácie", "boli zmenené");
+			$swal->print_msg();
+		} else {
+			$swal = new Swal_select("error", "Informácie", "boli zmenené");
+			$swal->print_msg();
+		}
 	}
 
 	public function show_users()
@@ -249,8 +255,12 @@ EOL;
 		$query = "DELETE FROM Student WHERE Login='$login'";
 		$result = mysqli_query($this->mysql, $query);
 		if ($result) {
+			$swal = new Swal_select("success", "Informácie", "boli zmenené");
+			$swal->print_msg();
 			// echo "Success";
 		} else {
+			$swal = new Swal_select("error", "Informácie", "boli zmenené");
+			$swal->print_msg();
 			// echo "Failure";
 		}
 
@@ -296,8 +306,12 @@ EOL;
 				$query = "INSERT INTO Student VALUES ('$login', $rocnik, '$semester', '$odbor[0]',  $odbor[1])";
 				$result = mysqli_query($this->mysql, $query);
 				if ($result) {
+					$swal = new Swal_select("success", "Informácie", "boli zmenené");
+					$swal->print_msg();
 					// echo "Succes";
 				} else {
+					$swal = new Swal_select("error", "Informácie", "boli zmenené");
+					$swal->print_msg();
 					// echo "Fail";
 				}
 			} else if (!empty($_POST["ustav"])) {
@@ -433,7 +447,11 @@ EOL;
 			$result = mysqli_query($this->mysql, $query);
 			if ($result) {
 				// TODO swal
+				$swal = new Swal_select("success", "Informácie", "boli zmenené");
+				$swal->print_msg();
 			} else {
+				$swal = new Swal_select("error", "Informácie", "boli zmenené");
+				$swal->print_msg();
 				// TODO swal
 			}
 		} else if ($change == "Garant") {
@@ -557,7 +575,6 @@ EOL;
 		}
 	}
 
-// TODO zobraz iba 1 studenta konkretneho , filter dat atp.
 }
 
 

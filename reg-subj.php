@@ -24,11 +24,10 @@
 
     <!-- Bootstrap core CSS -->
 
-  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
   <link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="./html/template.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 </head>
 
 <body data-gr-c-s-loaded="true" style="">

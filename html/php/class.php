@@ -129,22 +129,24 @@ class Student {
 		$query = "UPDATE Osoba SET $type='$post'WHERE Osoba.Login='$where'";
 		$result = mysqli_query($this->mysql, $query);
 		return $result;
-		// return true;
 	}
 
 	public function change_information()
 	{
 		$str_time = time();
 		$_SESSION['timestamp'] = $str_time;
+		$failure = false;
 		if (!empty($_POST["heslo"]) && is_string($_POST["heslo"])) {
 			if (!empty($_POST["heslo_potvrd"]) && is_string($_POST["heslo_potvrd"])) {
 				if ($_POST["heslo"] != $_POST["heslo_potvrd"]) {
+					$failure = true;
 					$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
 					$swal->print_msg();
-					exit();
+					// exit();
 				}
 			} else {
-				exit();
+				$failure = true;
+				// exit();
 			}
 
 			$heslo = base64_encode(hash("sha256", $_POST["heslo"], true));
@@ -163,9 +165,10 @@ class Student {
 		if (!empty($_POST["adresa"]) && is_string($_POST["adresa"])) {
 			$this->check_update_query($_POST["adresa"], $this->login, "Adresa");
 		}
-
-		$swal = new Swal_select("success", "Informácie", "boli zmenené");
-		$swal->print_msg();
+		if (!$failure) {
+			$swal = new Swal_select("success", "Informácie", "boli zmenené");
+			$swal->print_msg();
+		}
 
 	}
 
@@ -336,11 +339,6 @@ HEREDOC;
 
 	public function change_register_subject()
 	{
-		// TODO admin moze pridat predmet uzivatelovi z roznych oborov
-
-		// TODO Predmet nemoze byt starsi nez obor
-
-		//  . " AND Skratka_programu='" . $_SESSION["obor"] . "'
 		$query = "SELECT Rocny_kreditovy_strop FROM Pravidlo NATURAL JOIN Studijny_program NATURAL JOIN Student WHERE Login='" . $_SESSION["login"] . "'";
 		$result = mysqli_query($this->mysql, $query);
 		$data = mysqli_fetch_assoc($result);
@@ -502,28 +500,31 @@ class Swal_select {
 		if ($type == "error") {
 			$this->string = <<<EOL
 			<script>
-			swal({	title:"$title",
-					text: "$message",
-					type: "error",
-					html:true });
+			alert("Error occured!");
+			// swal({	title:"$title",
+			// 		text: "$message",
+			// 		type: "error",
+			// 		html:true });
 			</script>
 EOL;
 		} else if ($type == "warning") {
 			$this->string = <<<EOL
 			<script>
-			swal({	title:"$title",
-					text: "$message",
-					type: "warning",
-					html:true });
+			alert("Error occured!");
+			// swal({	title:"$title",
+			// 		text: "$message",
+			// 		type: "warning",
+			// 		html:true });
 			</script>
 EOL;
 		} else if  ($type == "success") {
 			$this->string = <<<EOL
 			<script>
-			swal({	title:"$title",
-					text: "$message",
-					type: "success",
-					html:true });
+			alert("Success")
+			// swal({	title:"$title",
+			// 		text: "$message",
+			// 		type: "success",
+			// 		html:true });
 			</script>
 EOL;
 		}
