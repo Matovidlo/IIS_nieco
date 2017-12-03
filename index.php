@@ -11,9 +11,11 @@
 
     <!-- <script src="./bootstrap/js/bootstrap.min.js"></script> -->
 	<!-- <script src="./html/bootstrap/js/bootstrap.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
 	<link href="./html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="./html/template.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 </head>
 
 <?php
@@ -58,7 +60,6 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 	require_once('./html/php/class.php');
 	$login_class = new Login($_SESSION['login']);
 	$login_class->check_session();
-	// TODO rozdel medzi administratora, garanta a studenta
 	if ($login_class->get_user() == "student") {
 		$student = new Student($_SESSION['login']);
 		if (isset($_POST["Submit"])) {

@@ -557,6 +557,7 @@ EOL;
 		}
 	}
 
+// TODO zobraz iba 1 studenta konkretneho , filter dat atp.
 }
 
 

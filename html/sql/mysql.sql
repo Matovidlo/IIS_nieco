@@ -84,7 +84,7 @@ Skratka_predmetu CHAR(3),
 Ak_rok YEAR NOT NULL,
 Nazov VARCHAR(40) NOT NULL,
 Typ VARCHAR(3) NOT NULL,
-Obsadenost INT NOT NULL,
+Obsadenost INT CHECK(Obsadenost >= 0),
 Ukoncenie_predmetu VARCHAR(5) NOT NULL,
 Fakulta VARCHAR(40) NOT NULL,
 Semester VARCHAR(8) NOT NULL,
@@ -106,6 +106,7 @@ INSERT INTO Pravidlo VALUES(1,180,2,30);
 INSERT INTO Pravidlo VALUES(2,60,1,70);
 INSERT INTO Pravidlo VALUES(3,120,3,75);
 INSERT INTO Pravidlo VALUES(4,130,3,80);
+INSERT INTO Pravidlo VALUES(1,180,2,50);
 
 INSERT INTO Studijny_program VALUES('BIT','Bakalarsky','Informatika','2016', '2020', 3,'prezenčná',1, 'Informatika je super');
 INSERT INTO Studijny_program VALUES('BGR','Bakalarsky','Grafika','2016', '2021', 3,'prezenčná',1, 'Grafika matika');
@@ -118,7 +119,6 @@ INSERT INTO Studijny_program VALUES('MAB','Magistersky','Ipsum','2014', '2018', 
 INSERT INTO Studijny_program VALUES('MAC','Magistersky','Dolor','2017', '2022', 2,'prezenčná',4, 'Aladin');
 INSERT INTO Studijny_program VALUES('MAD','Magistersky','Sit amet','2014', '2020', 2,'prezenčná',4, 'Aladin');
 
-
 INSERT INTO Osoba VALUES('xvasko14', 'xvasko14@stud.fit.vutbr.cz', 'Michal Vaško', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=', '', 'Presov', '07552');
 INSERT INTO Osoba VALUES('xvasko12', 'xvasko12@stud.fit.vutbr.cz', 'Martin Vaško', 'j0NDRmSPa5bfid2pAcUXaxCm2Dlh3TwayItZstwyeqQ=', '', 'Parchovany', '07662');
 INSERT INTO Osoba VALUES('xtamas01', 'xtamas01@stud.fit.vutbr.cz', 'Marek Tamaškovič', '10/w7o2juYBrGMh32/KbveULW9jk2tejpyUAD+uC6PE=', '', 'Sered', '05764');
@@ -130,7 +130,6 @@ INSERT INTO Osoba VALUES('xpotte02', 'xpotte02@stud.fit.vutbr.cz', 'Harry Potter
 INSERT INTO Osoba VALUES('xmessi03', 'xmessi03@stud.fit.vutbr.cz', 'Lionel Messi', 'm82ujrwqlwo2UQOlLagw85WPTzgfz9VE98BFLuCdugA=', '', 'Barcelona', '98765');
 INSERT INTO Osoba VALUES('xpasty09', 'xpasty09@stud.fit.vutbr.cz', 'Jozef Pastyrik', 'UuoyYOZCjX6CDO8/+d9EoDCQwust6FEd+au6ngV7BsM=', '', 'Brno', '60200');
 INSERT INTO Osoba VALUES('admin', 'admin@stud.fit.vutbr.cz', 'Morek Tamaškovič', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=', '', 'Brno', '60200');
-
 INSERT INTO Osoba VALUES('xabale00', 'xabale00@stud.fit.vutbr.cz', 'Andrej Abaled', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=', '', 'Brno', '60200');
 INSERT INTO Osoba VALUES('xdante01', 'xdante01@stud.fit.vutbr.cz', 'Dante Dante', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=', '', 'Brno', '60200');
 INSERT INTO Osoba VALUES('xhokan31', 'xhokan31@stud.fit.vutbr.cz', 'Ji Hokan', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=', '', 'Brno', '60200');
@@ -146,6 +145,13 @@ INSERT INTO Osoba VALUES('xblaze03', 'xblaze03@stud.fit.vutbr.cz', 'Anton Blazek
 INSERT INTO Osoba VALUES('xpotte12', 'xpotte12@stud.fit.vutbr.cz', 'Hary Pottter', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=', '', 'Brno', '60200');
 INSERT INTO Osoba VALUES('xpotte13', 'xpotte13@stud.fit.vutbr.cz', 'Harrry Potttter', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=', '', 'Brno', '60200');
 INSERT INTO Osoba VALUES('xpotte14', 'xpotte14@stud.fit.vutbr.cz', 'Yeah Boyyyy', 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=', '', 'Brno', '60200');
+
+INSERT INTO Predmet VALUES('IDS','2017','Databázové systémy','P',592,'ZaZk','FIT', 'Letny', 600, 'BIT',5, 2);
+INSERT INTO Predmet VALUES('ITY','2016','Typografia','V',350,'KlZa','FIT', 'Letny', 600, 'BGR',4, 2);
+INSERT INTO Predmet VALUES('IOS','2016','Operačné systémy','P',420,'ZaZk','FIT', 'Letny', 600, 'BIT',6, 1);
+INSERT INTO Predmet VALUES('IFJ','2016','Formálne jazyky','P',410,'ZaZk','FIT', 'Zimny', 600, 'BIT',5, 2);
+INSERT INTO Predmet VALUES('IPP','2017','00P','P',420,'Zk','FIT', 'Letny', 600, 'BIT',7, 2);
+INSERT INTO Predmet VALUES('IAL','2017','Algoritmy','P',420,'ZaZk','FIT', 'Zimny', 600, 'BIT',5, 2);
 
 INSERT INTO Student VALUES('xvasko14',2,4, 'BIT','2016');
 INSERT INTO Student VALUES('xvasko12',2,3,'BGR', '2016');
@@ -170,7 +176,6 @@ INSERT INTO Student VALUES('xpotte12',2,4,'MAA', '2010');
 INSERT INTO Student VALUES('xpotte13',2,4,'MBI', '2015');
 INSERT INTO Student VALUES('xpotte14',2,4,'MAB', '2017');
 
-
 INSERT INTO Zamestnanec VALUES('vesely', 'UPS', 1);
 INSERT INTO Zamestnanec VALUES('ikanich', 'UPGM', 0);
 INSERT INTO Zamestnanec VALUES('smrcka', 'UVF', 1);
@@ -180,6 +185,7 @@ INSERT INTO Zamestnanec VALUES('hruby', 'UPGM', 1);
 INSERT INTO Zamestnanec VALUES('inovotny', 'UPS', 1);
 INSERT INTO Zamestnanec VALUES('ibrunej', 'UVF', 1);
 INSERT INTO Zamestnanec VALUES('admin', 'UIFS', 0);
+INSERT INTO Zamestnanec VALUES('vojnar', 'UVF', 1);
 
 INSERT INTO Spravca VALUES('admin');
 
@@ -377,8 +383,6 @@ INSERT INTO Prihlasuje VALUES('xtamas01', 'IPP', '2017');
 INSERT INTO Prihlasuje VALUES('xpotte02', 'IDS', '2017');
 INSERT INTO Prihlasuje VALUES('xmessi03', 'IDS', '2017');
 INSERT INTO Prihlasuje VALUES('xpasty09', 'IDS', '2017');
-
-
 
 SELECT
 Student.Login, Student.Ak_rok
