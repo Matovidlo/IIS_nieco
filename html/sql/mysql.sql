@@ -390,6 +390,75 @@ INSERT INTO Prihlasuje VALUES('xvasko12', 'IDS', '2017');
 INSERT INTO Prihlasuje VALUES('xvasko12', 'ITY', '2016');
 INSERT INTO Prihlasuje VALUES('xvasko12', 'IOS', '2016');
 INSERT INTO Prihlasuje VALUES('xvasko14', 'IDS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xvasko12', 'IVS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xvasko12', 'ISC', '2017');
+INSERT INTO Prihlasuje
+VALUES('xvasko12', 'ISJ', '2017');
+INSERT INTO Prihlasuje
+VALUES('xvasko14', 'IPP', '2017');
+INSERT INTO Prihlasuje
+VALUES('xvasko14', 'ZPD', '2017');
+INSERT INTO Prihlasuje
+VALUES('xvasko14', 'AGS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xtamas01', 'IPP', '2017');
+INSERT INTO Prihlasuje
+VALUES('xtamas01', 'PBI', '2017');
+INSERT INTO Prihlasuje
+VALUES('xpotte02', 'ITY', '2017');
+INSERT INTO Prihlasuje
+VALUES('xpotte02', 'IOS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xmessi03', 'PKS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xmessi03', 'PIS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xpasty09', 'ISJ', '2017');
+INSERT INTO Prihlasuje
+VALUES('xpasty09', 'IVS', '2017');
+INSERT INTO Prihlasuje
+VALUES('ikanich', 'IFS', '2017');
+INSERT INTO Prihlasuje
+VALUES('ikanich', 'MPR', '2017');
+INSERT INTO Prihlasuje
+VALUES('xabale00', 'MPR', '2017');
+INSERT INTO Prihlasuje
+VALUES('xabale00', 'IFS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xdante01', 'ITY', '2017');
+INSERT INTO Prihlasuje
+VALUES('xdante01', 'IOS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xhokan31', 'IFS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xhokan31', 'IJC', '2017');
+INSERT INTO Prihlasuje
+VALUES('xblaho24', 'ZPD', '2017');
+INSERT INTO Prihlasuje
+VALUES('xblaho24', 'AGS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xorman00', 'ZPD', '2017');
+INSERT INTO Prihlasuje
+VALUES('xblaho24', 'AGS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xorsza00', 'ZPD', '2017');
+INSERT INTO Prihlasuje
+VALUES('xorsza00', 'AGS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xormos12', 'IPP', '2017');
+INSERT INTO Prihlasuje
+VALUES('xormos12', 'ISM', '2017');
+INSERT INTO Prihlasuje
+VALUES('xchlan02', 'MPR', '2017');
+INSERT INTO Prihlasuje
+VALUES('xchlan02', 'IFS', '2017');
+INSERT INTO Prihlasuje
+VALUES('xricht00', 'IMN', '2017');
+INSERT INTO Prihlasuje
+VALUES('xricht00', 'PAS', '2017');
+
 INSERT INTO Prihlasuje VALUES('xvasko14', 'IFJ', '2016');
 INSERT INTO Prihlasuje VALUES('xtamas01', 'IDS', '2017');
 INSERT INTO Prihlasuje VALUES('xtamas01', 'IPP', '2017');
