@@ -371,6 +371,19 @@ INSERT INTO Predmet VALUES ('ZPO', '2017', 'Zpracování obrazu', 'P', '420', 'Z
 INSERT INTO Predmet VALUES ('ZPD', '2017', 'Zpracování přirozeného jazyka', 'P', '420', 'Zk', 'FIT', 'Zimny', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('ASD', '2017', 'Zpracování řeči a audia člověkem a počítačem', 'P', '420', 'Zk', 'FIT', 'Z', 600, 'BIT', 5, 2);
 INSERT INTO Predmet VALUES ('ZRE', '2017', 'Zpracování řečových signálů', 'P', '420', 'Zk', 'FIT', 'Letny', 600, 'BIT', 5, 2);
+INSERT INTO Predmet VALUES('IGG','2017','Grafika','P',550,'ZaZk','FIT', 'Zimny', 500, 'BGR',6, 2);
+INSERT INTO Predmet VALUES('ITG','2017','Grafika a rozhrania','P',450,'ZaZk','FIT', 'Zimny', 500, 'BGR',7, 2);
+INSERT INTO Predmet VALUES('ISC','2017','Počitačový seminár','P',350,'ZaZk','FIT', 'Zimny', 500, 'BGR',6, 2);
+INSERT INTO Predmet VALUES('IVG','2017','Informačná výchova a grafika','P',250,'ZaZk','FIT', 'Zimny', 500, 'BGR',7, 2);
+INSERT INTO Predmet VALUES('ISJ','2017','Skriptovacie jazyky','P',350,'KlZa','FIT', 'Letny', 600, 'BGR',7, 2);
+INSERT INTO Predmet VALUES('IVS','2017','Vývoj softwaru','P',350,'KlZa','FIT', 'Letny', 600, 'BGR',5, 2);
+INSERT INTO Predmet VALUES('RET','2017','Retorika','P',250,'KlZa','FIT', 'Letny', 600, 'BGR',6, 2);
+INSERT INTO Predmet VALUES('VYP','2017','Výstavba prekladačov','P',350,'KlZa','FIT', 'Letny', 600, 'BGR',6, 2);
+INSERT INTO Predmet VALUES('PAS','2017','Pokročilé asemblery','P',350,'ZaZk','FIT', 'Zimny', 400, 'MBI',7, 1);
+INSERT INTO Predmet VALUES('IJC','2017','Jazyk C','P',150,'ZaZk','FIT', 'Zimny', 300, 'MBI',5, 1);
+INSERT INTO Predmet VALUES('MPR','2017','Management projektov','P',250,'ZaZk','FIT', 'Zimny', 300, 'MBI',6, 1);
+INSERT INTO Predmet VALUES('IMM','2017','Matematika','P',250,'ZaZk','FIT', 'Zimny', 300, 'MBI',5, 1);
+INSERT INTO Predmet VALUES('IFS','2017','Fyzikálny seminár','P',250,'ZaZk','FIT', 'Zimny', 300, 'MBI',6, 1);
 
 
 INSERT INTO Prihlasuje VALUES('xvasko12', 'IDS', '2017');
