@@ -74,7 +74,10 @@
           <h2>Prehľad používateľov</h2>
           <div class="table-responsive">
             <form method="POST">
-            <table class="table table-striped  table-hover">
+            <div class="form-group float-lg-right col-md-3" style="margin-top:5px;">
+            <input type="text" class="search_user form-control" onkeyup="myFunction('user', 0, 1)" placeholder="What you looking for?">
+            </div>
+            <table class="table table-striped results_user table-hover">
               <thead>
                 <tr>
                   <th>Login</th>
