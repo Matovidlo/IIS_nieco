@@ -97,7 +97,7 @@
               </tbody>
             </table>
           </div>
-          <button type="submit" name="Submit" class="btn btn-secondary">Uložiť zmeny</button>
+          <button type="submit" name="Submit" class="btn btn-secondary" style="margin-bottom:10px;">Uložiť zmeny</button>
           <br>
         </form>
         </main>
