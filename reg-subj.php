@@ -76,7 +76,7 @@
                   <th>Nazov</th>
                   <th>Fakulta</th>
                   <th>Max</th>
-                  <th>Zapísaných</th>
+                  <th>Voľných</th>
                   <th>Registrovaný</th>
                 </tr>
               </thead>
@@ -103,7 +103,7 @@
                   <th>Nazov</th>
                   <th>Fakulta</th>
                   <th>Max</th>
-                  <th>Zapísaných</th>
+                  <th>Voľných</th>
                   <th>Registrovaný</th>
                 </tr>
               </thead>

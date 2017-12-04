@@ -129,22 +129,24 @@ class Student {
 		$query = "UPDATE Osoba SET $type='$post'WHERE Osoba.Login='$where'";
 		$result = mysqli_query($this->mysql, $query);
 		return $result;
-		// return true;
 	}
 
 	public function change_information()
 	{
 		$str_time = time();
 		$_SESSION['timestamp'] = $str_time;
+		$failure = false;
 		if (!empty($_POST["heslo"]) && is_string($_POST["heslo"])) {
 			if (!empty($_POST["heslo_potvrd"]) && is_string($_POST["heslo_potvrd"])) {
 				if ($_POST["heslo"] != $_POST["heslo_potvrd"]) {
+					$failure = true;
 					$swal = new Swal_select("error", "Heslo", "sa nezhoduje, prosím vyplňte znova");
 					$swal->print_msg();
-					exit();
+					// exit();
 				}
 			} else {
-				exit();
+				$failure = true;
+				// exit();
 			}
 
 			$heslo = base64_encode(hash("sha256", $_POST["heslo"], true));
@@ -163,9 +165,10 @@ class Student {
 		if (!empty($_POST["adresa"]) && is_string($_POST["adresa"])) {
 			$this->check_update_query($_POST["adresa"], $this->login, "Adresa");
 		}
-
-		$swal = new Swal_select("success", "Informácie", "boli zmenené");
-		$swal->print_msg();
+		if (!$failure) {
+			$swal = new Swal_select("success", "Informácie", "boli zmenené");
+			$swal->print_msg();
+		}
 
 	}
 
@@ -336,25 +339,22 @@ HEREDOC;
 
 	public function change_register_subject()
 	{
-		// TODO admin moze pridat predmet uzivatelovi z roznych oborov
-
-		// TODO Predmet nemoze byt starsi nez obor
-
-		//  . " AND Skratka_programu='" . $_SESSION["obor"] . "'
 		$query = "SELECT Rocny_kreditovy_strop FROM Pravidlo NATURAL JOIN Studijny_program NATURAL JOIN Student WHERE Login='" . $_SESSION["login"] . "'";
 		$result = mysqli_query($this->mysql, $query);
 		$data = mysqli_fetch_assoc($result);
 		$strop = $data["Rocny_kreditovy_strop"];
 
 
-		$query = "SELECT Skratka_predmetu FROM Predmet NATURAL JOIN Prihlasuje WHERE Login='" . $_SESSION["login"] . "'";
+		$query = "SELECT Skratka_predmetu FROM Predmet NATURAL JOIN Prihlasuje WHERE Login='" . $_SESSION["login"] . "' AND Prihlasuje.Ak_rok='" . date("Y") . "'";
 		$result = mysqli_query($this->mysql, $query);
 		$registered_already = array();
 		while ($row = $result->fetch_assoc()) {
 			array_push($registered_already, $row["Skratka_predmetu"]);
 		}
 
-		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Zimny'";
+		$delete = false;
+
+		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov, Obsadenost FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Zimny'";
 		$result = mysqli_query($this->mysql, $query);
 
 
@@ -366,68 +366,89 @@ HEREDOC;
 			while($row = $result->fetch_assoc()) {
 				$predmet = $row['Skratka_predmetu'];
 				if(isset($_POST["$predmet"])) {
+					if ($row["Obsadenost"] == 0) {
+						continue;
+					}
 					$accumulator += $row["Pocet_kreditov"];
 					$this->insert_subject($predmet);
 					array_push($all_subjects, $predmet);
 				} else {
 					$this->delete_subject($predmet);
+					$this->inc_obs($predmet);
 				}
 			}
 			if ($accumulator < 15) {
-				$this->delete_registration();
+				// $this->delete_registration();
 				$fail = true;
 			} else {
-				$swal = new Swal_select("success", "Predmety", "boli registrovane");
-				$swal->print_msg();
 			}
 			$summary = $accumulator;
 		}
 
-		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Letny'";
+		$query = "SELECT Skratka_programu, Skratka_predmetu, Pocet_kreditov, Obsadenost FROM Predmet NATURAL JOIN Studijny_program WHERE Predmet.Ak_rok=" . date("Y") . " AND Predmet.Semester='Letny'";
 		$result = mysqli_query($this->mysql, $query);
 		if ($result->num_rows > 0) {
 			$accumulator = 0;
 			while($row = $result->fetch_assoc()) {
 				$predmet = $row['Skratka_predmetu'];
 				if(isset($_POST["$predmet"])) {
+					if ($row["Obsadenost"] == 0) {
+						continue;
+					}
 					$accumulator += $row["Pocet_kreditov"];
 					array_push($all_subjects, $predmet);
 					$this->insert_subject($predmet);
 				} else {
 					$this->delete_subject($predmet);
+					$this->inc_obs($predmet);
 				}
 			}
+
 			if ($accumulator < 15 || $fail) {
-				$this->delete_registration();
 				$fail = true;
 
 			} else {
-				$swal = new Swal_select("success", "Predmety", "boli registrovane");
-				$swal->print_msg();
 			}
 			$summary += $accumulator;
 		}
 		if ($summary > $strop || $fail) {
-			$this->delete_registration();
-			$fail =true;
+			$difference = array_diff($all_subjects, $registered_already);
+			$this->delete_registration($difference);
+			return;
 		}
+
 		if ($fail) {
 			$this->change_capacity($registered_already, 1);
 		}
 
 		$difference = array_diff($all_subjects, $registered_already);
-		if (!empty($difference) && !$fail)
+		if (!empty($difference) && !$fail){
 			$this->change_capacity($difference, -1);
+		}
 
 		$difference = array_diff($registered_already, $all_subjects);
-		if (!empty($difference) && !$fail)
+		if (!empty($difference) && !$fail){
 			$this->change_capacity($difference, 1);
+		}
 
+		$swal = new Swal_select("success", "Predmety", "boli registrovane");
+		$swal->print_msg();
 		// DEBUG
 		// echo " <pre> Uz registrovane" . print_r($registered_already) . " Registracia POST:" . print_r($all_subjects) . " VYSLEDOK" . print_r($difference) ."</pre>";
 		unset($_SESSION["obor"]);
 	}
 
+
+	private function inc_obs($subj)
+	{
+		$query = "SELECT Obsadenost FROM Predmet WHERE Skratka_predmetu='$subj'";
+		$result = mysqli_query($this->mysql, $query);
+		$data = mysqli_fetch_assoc($result);
+		$current = $data["Obsadenost"] + 1;
+
+		$query = "UPDATE Predmet SET Obsadenost=$current WHERE Skratka_predmetu='$subj'";
+		$result = mysqli_query($this->mysql, $query);
+	}
 
 	private function add_delete_capacity($subject)
 	{
@@ -481,9 +502,11 @@ EOL;
 		}
 	}
 
-	private function delete_registration() {
-		$query = "DELETE FROM Prihlasuje WHERE Prihlasuje.Login='" . $_SESSION["login"] . "'";
-		$result = mysqli_query($this->mysql, $query);
+	private function delete_registration($arr) {
+		foreach($arr as $value) {
+			$query = "DELETE FROM Prihlasuje WHERE Prihlasuje.Skratka_predmetu='$value'";
+			$result = mysqli_query($this->mysql, $query);
+		}
 	}
 
 	// end of class
@@ -502,28 +525,31 @@ class Swal_select {
 		if ($type == "error") {
 			$this->string = <<<EOL
 			<script>
-			swal({	title:"$title",
-					text: "$message",
-					type: "error",
-					html:true });
+			alert("Error occured!");
+			// swal({	title:"$title",
+			// 		text: "$message",
+			// 		type: "error",
+			// 		html:true });
 			</script>
 EOL;
 		} else if ($type == "warning") {
 			$this->string = <<<EOL
 			<script>
-			swal({	title:"$title",
-					text: "$message",
-					type: "warning",
-					html:true });
+			alert("Error occured!");
+			// swal({	title:"$title",
+			// 		text: "$message",
+			// 		type: "warning",
+			// 		html:true });
 			</script>
 EOL;
 		} else if  ($type == "success") {
 			$this->string = <<<EOL
 			<script>
-			swal({	title:"$title",
-					text: "$message",
-					type: "success",
-					html:true });
+			alert("Success")
+			// swal({	title:"$title",
+			// 		text: "$message",
+			// 		type: "success",
+			// 		html:true });
 			</script>
 EOL;
 		}

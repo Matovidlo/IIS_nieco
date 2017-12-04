@@ -72,34 +72,34 @@
           <h2>Nový predmet</h2>
           <form method="POST">
             <div class="form-row">
-              <div class="form-group col-md-2">
+              <div class="form-group col-md-2 required">
                 <label for="inputEmail4">Skratka</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="XXX" name="skratka">
+                <input type="text" class="form-control" id="inputEmail4" placeholder="XXX" name="skratka" value="<?php if (isset($_POST['skratka'])) echo $_POST["skratka"];?>" required>
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-4 required">
                 <label for="inputPassword4">Názov</label>
-                <input type="text" class="form-control" id="inputPassword4" placeholder="Názov predmetu" name="nazov">
+                <input type="text" class="form-control" id="inputPassword4" placeholder="Názov predmetu" name="nazov" value="<?php if (isset($_POST['nazov'])) echo $_POST["nazov"];?>" required>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-1">
+              <div class="form-group col-md-1 required">
                 <label for="inputAddress">Počet kreditov</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="8" name="kredity">
+                <input type="text" class="form-control" id="inputAddress" placeholder="8" name="kredity" value="<?php if (isset($_POST['kredity'])) echo $_POST["kredity"];?>" required>
               </div>
-              <div class="form-group col-md-1">
+              <div class="form-group col-md-1 required">
                 <label for="inputAddress">Kapacita</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="500" name="cap">
+                <input type="text" class="form-control" id="inputAddress" placeholder="500" name="cap" value="<?php if (isset($_POST['cap'])) echo $_POST["cap"];?>" required>
               </div>
-              <div class="form-group col-md-1">
+              <div class="form-group col-md-1 required">
                 <label for="inputState">Fakulta</label>
-                <select id="inputState" class="form-control" name="faculty">
+                <select id="inputState" class="form-control" name="faculty" required >
                   <option value="FIT" selected>FIT</option>
                   <option value="FP">FP</option>
                   <option value="FEKT">FEKT</option>
                   <option value="FSI">FSI</option>
                 </select>
               </div>
-              <div class="form-group col-md-2">
+              <div class="form-group col-md-2 required">
                 <label for="inputState">Typ</label>
                 <select id="inputState" class="form-control" name="typ">
                   <option value="P" selected>Povinný</option
@@ -107,7 +107,7 @@
                   <option value="V">Voliteľný</option>
                 </select>
               </div>
-              <div class="form-group col-md-1">
+              <div class="form-group col-md-1 required">
                 <label for="inputPassword4">Študijný odbor</label>
                 <select id="inputState" class="form-control" name="odbor">
                   <?php
@@ -117,14 +117,14 @@
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-3 required">
                 <label for="inputEmail4">Semester</label>
                 <select id="inputState" class="form-control" name="semester">
                   <option value="Zimny" selected>Zimný</option>
                   <option value="Letny">Letný</option>
                 </select>
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-3 required">
                 <label for="inputEmail4">Rocnik</label>
                 <select id="inputState" class="form-control" name="rocnik">
                   <option value="1" selected>1</option>

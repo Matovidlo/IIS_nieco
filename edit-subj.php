@@ -10,6 +10,7 @@
     if (isset($_POST["Submit"])) {
       $garant->edit_subject();
     }
+    $garant->show_odbor();
 ?>
 
 <html lang="en" class="gr__getbootstrap_com">
@@ -85,17 +86,13 @@
           </h2>
           <form method="POST">
             <div class="form-row">
-              <div class="form-group col-md-1">
+              <div class="form-group col-md-2">
                 <label for="inputEmail4">Skratka</label>
                 <input type="text" class="form-control" id="inputEmail4" placeholder="XXX" value="<?php echo $info["Skratka_predmetu"];?>" name="skratka" required>
               </div>
               <div class="form-group col-md-4">
                 <label for="inputPassword4">Názov</label>
                 <input type="text" class="form-control" id="inputPassword4" placeholder="Informačné systémy" value="<?php echo $info["Nazov"];?>" name="nazov" required>
-              </div>
-              <div class="form-group col-md-1">
-                <label for="inputAddress">Rok</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="XXXX" value="<?php echo $info["Ak_rok"];?>" name="rok">
               </div>
             </div>
             <div class="form-row">
@@ -124,15 +121,12 @@
                   <option value="V">Voliteľný</option>
                 </select>
               </div>
-              <div class="form-group col-md-1">
+              <div class="form-group col-md-1 required">
                 <label for="inputPassword4">Študijný odbor</label>
                 <select id="inputState" class="form-control" name="odbor">
-                  <!-- TODO na zaklade dotazu pridat options dokoncit selected -->
-                  <option value="BIT" selected>BIT</option>
-                  <option value="BGR">BGR</option>
-                  <option value="MIT">MIT</option>
-                  <option value="MBI">MBI</option>
-                  <option value="MIM">MIM</option>
+                  <?php
+                    $garant->show_odbor();
+                  ?>
                 </select>
               </div>
             </div>

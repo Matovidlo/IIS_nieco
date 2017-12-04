@@ -90,19 +90,19 @@
             <div class="form-row">
               <div class="form-group col-md-2 required">
                 <label class="control-label" for="inputAddress">Meno</label>
-                <input type="text" class="form-control" id="Name" placeholder="Meno a Priezvisko" name="meno" required>
+                <input type="text" class="form-control" id="Name" placeholder="Meno a Priezvisko" name="meno" value="<?php if (isset($_POST["meno"])) echo $_POST["meno"];?>" required>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-2 required">
                 <label class="control-label" for="inputAddress">Login</label>
-                <input type="text" class="form-control" id="Name" placeholder="XNAMEYY" name="login" required>
+                <input type="text" class="form-control" id="Name" placeholder="XNAMEYY" name="login" value="<?php if (isset($_POST["login"])) echo $_POST["login"];?>" required>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-4 required">
                 <label class="control-label" for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" required>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" value="<?php if (isset($_POST["email"])) echo $_POST["email"];?>" required>
               </div>
             </div>
             <div class="form-row">
@@ -118,17 +118,17 @@
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label class="control-label" for="inputAddress">Adresa</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" input="adresa">
+                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" input="adresa" value="<?php if (isset($_POST["adresa"])) echo $_POST["adresa"];?>">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-2 required">
                 <label class="control-label" for="inputCity">Mesto</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" required="required" name="mesto">
+                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" required="required" name="mesto" value="<?php if (isset($_POST["mesto"])) echo $_POST["mesto"];?>">
               </div>
               <div class="form-group required col-md-2">
                 <label class="control-label" for="inputZip">PSČ</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="000 00" required="required" name="psc">
+                <input type="text" class="form-control" id="inputZip" placeholder="000 00" required="required" name="psc" value="<?php if (isset($_POST["psc"])) echo $_POST["psc"];?>">
               </div>
             </div>
             <div class="form-row">

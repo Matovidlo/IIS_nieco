@@ -39,7 +39,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
 				<label for="exampleInputPassword1">Password</label>
 				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="input_password">
 			</div>
-			<button type="submit" name="Submit" class="btn btn-primary">Login</button>
+			<button type="submit" name="Submit2" class="btn btn-primary">Login</button>
 		</form>
 	</div>
 </body>
@@ -100,7 +100,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <div class="form-row">
               <div class="form-group col-md-3 required">
                 <label class="control-label" for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" name="email" required>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" value="<?php if (isset($_POST["email"])) echo $_POST["email"];?>" required>
               </div>
             </div>
             <div class="form-row">
@@ -116,24 +116,17 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <div class="form-row">
               <div class="form-group col-md-3 ">
                 <label class="control-label" for="inputAddress">Adresa</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa">
+                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa" value="<?php if (isset($_POST["adresa"])) echo $_POST["adresa"];?>">
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-2">
+              <div class="form-group col-md-3">
                 <label class="control-label" for="inputCity">Mesto</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" required="required" name="mesto">
+                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" required="required" name="mesto" value="<?php if (isset($_POST["mesto"])) echo $_POST["mesto"];?>">
               </div>
-              <div class="form-group col-md-2">
-                <label for="inputState">Kraj</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Trnavský</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group required col-md-2">
+              <div class="form-group required col-md-3">
                 <label class="control-label" for="inputZip">PSČ</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="000 00" required="required" name="psc">
+                <input type="text" class="form-control" id="inputZip" placeholder="000 00" required="required" name="psc" value="<?php if (isset($_POST["psc"])) echo $_POST["psc"];?>">
               </div>
             </div>
             Prvky označené <span style="color: #d00;position: relative; margin-left: 4px; top: -6px;">*</span> sú povinné.
@@ -200,7 +193,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <div class="form-row">
               <div class="form-group col-md-3 required">
                 <label class="control-label" for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" required>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" value="<?php if (isset($_POST["email"])) echo $_POST["email"];?>" required>
               </div>
             </div>
             <div class="form-row">
@@ -216,24 +209,17 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <div class="form-row">
               <div class="form-group col-md-3 required">
                 <label class="control-label" for="inputAddress">Adresa</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa" required>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa" value="<?php if (isset($_POST["adresa"])) echo $_POST["adresa"];?>" required>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-2 required">
+              <div class="form-group col-md-3 required">
                 <label class="control-label" for="inputCity">Mesto</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" required="required" name="mesto">
+                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" required="required" name="mesto" value="<?php if (isset($_POST["mesto"])) echo $_POST["mesto"];?>">
               </div>
-              <div class="form-group col-md-2">
-                <label for="inputState">Kraj</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Trnavský</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group required col-md-2">
+              <div class="form-group required col-md-3">
                 <label class="control-label" for="inputZip">PSČ</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="000 00" required="required" name="psc">
+                <input type="text" class="form-control" id="inputZip" placeholder="000 00" required="required" name="psc" value="<?php if (isset($_POST["psc"])) echo $_POST["psc"];?>">
               </div>
             </div>
             Prvky označené <span style="color: #d00;position: relative; margin-left: 4px; top: -6px;">*</span> sú povinné.
@@ -312,7 +298,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <div class="form-row">
               <div class="form-group col-md-3 required">
                 <label class="control-label" for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required name="email">
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required name="email" value="<?php if (isset($_POST["email"])) echo $_POST["email"];?>">
               </div>
             </div>
             <div class="form-row">
@@ -328,24 +314,17 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['logged_in'])) {
             <div class="form-row">
               <div class="form-group col-md-3 required">
                 <label class="control-label" for="inputAddress">Adresa</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa" required>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Ulica a popisné číslo" name="adresa" value="<?php if (isset($_POST["adresa"])) echo $_POST["adresa"];?>" required>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-2 required">
+              <div class="form-group col-md-3 required">
                 <label class="control-label" for="inputCity">Mesto</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" name="mesto" required="required">
+                <input type="text" class="form-control" id="inputCity" placeholder="Mesto" name="mesto" required="required" value="<?php if (isset($_POST["mesto"])) echo $_POST["mesto"];?>">
               </div>
-              <div class="form-group col-md-2">
-                <label for="inputState">Kraj</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Trnavský</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group required col-md-2">
+              <div class="form-group required col-md-3">
                 <label class="control-label" for="inputZip">PSČ</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="000 00" name="psc" required="required">
+                <input type="text" class="form-control" id="inputZip" placeholder="000 00" name="psc" required="required" value="<?php if (isset($_POST["psc"])) echo $_POST["psc"];?>">
               </div>
             </div>
             Prvky označené <span style="color: #d00;position: relative; margin-left: 4px; top: -6px;">*</span> sú povinné.

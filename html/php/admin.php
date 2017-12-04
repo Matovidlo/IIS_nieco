@@ -92,7 +92,6 @@ EOL;
 		$result = mysqli_query($this->mysql, $query);
 
 		while($row = $result->fetch_assoc()) {
-			print_r($row["Login"]);
 			$query = "DELETE FROM Zamestnanec WHERE Login='" . $row["Login"] . "'";
 			$qry = mysqli_query($this->mysql, $query);
 
@@ -128,8 +127,10 @@ EOL;
 		mysqli_query($this->mysql, $query);
 
 		$query = "DELETE FROM Studijny_program WHERE Skratka_programu='$program' AND Ak_rok=$rok";
-		mysqli_query($this->mysql, $query);
-
+		$result = mysqli_query($this->mysql, $query);
+		if ($result) {
+		} else {
+		}
 	}
 
 	public function show_users()
@@ -249,8 +250,12 @@ EOL;
 		$query = "DELETE FROM Student WHERE Login='$login'";
 		$result = mysqli_query($this->mysql, $query);
 		if ($result) {
+			$swal = new Swal_select("success", "Informácie", "boli zmenené");
+			$swal->print_msg();
 			// echo "Success";
 		} else {
+			$swal = new Swal_select("error", "Informácie", "boli zmenené");
+			$swal->print_msg();
 			// echo "Failure";
 		}
 
@@ -296,8 +301,12 @@ EOL;
 				$query = "INSERT INTO Student VALUES ('$login', $rocnik, '$semester', '$odbor[0]',  $odbor[1])";
 				$result = mysqli_query($this->mysql, $query);
 				if ($result) {
+					$swal = new Swal_select("success", "Informácie", "boli zmenené");
+					$swal->print_msg();
 					// echo "Succes";
 				} else {
+					$swal = new Swal_select("error", "Informácie", "boli zmenené");
+					$swal->print_msg();
 					// echo "Fail";
 				}
 			} else if (!empty($_POST["ustav"])) {
@@ -394,7 +403,6 @@ EOL;
 			$data = mysqli_fetch_assoc($result);
 			// echo $data["Login"] . $old_permissions . $change;
 			if ($change == $old_permissions) {
-				echo $data["Login"];
 				return false;
 			} else {
 				// change of permissions delete user and insert him to another table
@@ -407,7 +415,6 @@ EOL;
 				} else if ($old_permissions == "Admin") {
 					$query = "DELETE FROM Spravca WHERE Login='" . $data["Login"]  . "'";
 					mysqli_query($this->mysql, $query);
-					echo "<br>" . $data["Login"];
 					$query = "DELETE FROM Zamestnanec WHERE Login='" . $data["Login"]  . "'";
 					$this->delete_user_only($query, $change, $data);
 				} else {
@@ -432,9 +439,11 @@ EOL;
 			$query = "INSERT INTO Student VALUES ('$login' , $rocnik, $semester, '$skratka', $year)";
 			$result = mysqli_query($this->mysql, $query);
 			if ($result) {
-				// TODO swal
+				$swal = new Swal_select("success", "Informácie", "boli zmenené");
+				$swal->print_msg();
 			} else {
-				// TODO swal
+				$swal = new Swal_select("error", "Informácie", "boli zmenené");
+				$swal->print_msg();
 			}
 		} else if ($change == "Garant") {
 			$query = "INSERT INTO Zamestnanec VALUES ('$login', '', 0)";
@@ -557,7 +566,6 @@ EOL;
 		}
 	}
 
-// TODO zobraz iba 1 studenta konkretneho , filter dat atp.
 }
 
 

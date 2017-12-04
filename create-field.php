@@ -76,13 +76,13 @@
             <div class="form-row">
               <div class="form-group col-md-4 required">
                 <label class="control-label" for="inputEmail4">Skratka</label>
-                <input type="text" class="form-control" id="Name" placeholder="Názov" name="skratka" value="<?php echo $options["Skratka_programu"]?>" required>
+                <input type="text" class="form-control" id="Name" placeholder="Názov" name="skratka" value="<?php echo $options["Skratka_programu"]; if (isset($_POST["skratka"])) echo $_POST["skratka"];?>"  required>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-2 required">
                 <label class="control-label" for="inputCity">Dátum ukončenia akreditácie</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="RRRR"  name="akredit" value="<?php echo $options["Akreditacia"]?>" required="required">
+                <input type="text" class="form-control" id="inputCity" placeholder="RRRR"  name="akredit" value="<?php echo $options["Akreditacia"]; if (isset($_POST["akredit"])) echo $_POST["akredit"];?>" required="required">
               </div>
               <div class="form-group col-md-2 required">
                 <label for="inputState">Typ pravidla</label>
@@ -96,11 +96,11 @@
             <div class="form-row">
               <div class="form-group col-md-2 required">
                 <label class="control-label" for="inputAddress">Garant</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Meno" name="garant" required>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Meno" name="garant" value="<?php if (isset($_POST["garant"])) echo $_POST["garant"];?>" required>
               </div>
               <div class="form-group required col-md-2">
                 <label class="control-label" for="inputZip">Odbor</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="Doplnte sem názov odboru" name="odbor" value="<?php echo $options["Odbor"]?>">
+                <input type="text" class="form-control" id="inputZip" placeholder="Doplnte sem názov odboru" name="odbor" value="<?php echo $options["Odbor"]; if (isset($_POST["odbor"])) echo $_POST["odbor"];?>">
               </div>
             </div>
             <div class="form-row">
